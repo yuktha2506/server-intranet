@@ -1,0 +1,4826 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MT CNC-Group – Employee Intranet Portal | Microtech CNC Pvt. Ltd.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+/* ==========================================================================
+   MT CNC-Group - Modern Manufacturing Employee Intranet Portal
+   Microtech CNC Pvt. Ltd.
+   ========================================================================== */
+
+:root {
+  --bg: #f0f4f8;
+  --surface: #ffffff;
+  --surface-raised: #f8fafc;
+  --fg: #0f172a;
+  --muted: #475569;
+  --line: #cbd5e1;
+  --line-subtle: #e2e8f0;
+  
+  /* Brand colors: Industrial Precision Navy & Cyan */
+  --accent: #0284c7;
+  --accent-hover: #0369a1;
+  --accent-fg: #ffffff;
+  --accent-soft: #e0f2fe;
+  --brand-navy: #0f172a;
+  --brand-steel: #334155;
+  
+  /* Status alerts */
+  --warn: #d97706;
+  --warn-soft: #fef3c7;
+  --ok: #16a34a;
+  --ok-soft: #dcfce7;
+  --crit: #dc2626;
+  --crit-soft: #fee2e2;
+  --info: #2563eb;
+  --info-soft: #dbeafe;
+
+  /* Typography */
+  --font-display: "Space Grotesk", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-body: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", Consolas, monospace;
+
+  /* Shadows and radiuses */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-full: 9999px;
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.12), 0 8px 10px -6px rgba(0, 0, 0, 0.08);
+
+  color-scheme: light;
+}
+
+[data-theme="dark"] {
+  --bg: #0b0f17;
+  --surface: #131b26;
+  --surface-raised: #1a2433;
+  --fg: #f1f5f9;
+  --muted: #94a3b8;
+  --line: #243042;
+  --line-subtle: #1c2636;
+  
+  --accent: #38bdf8;
+  --accent-hover: #0284c7;
+  --accent-fg: #0b0f17;
+  --accent-soft: #0c2d48;
+  --brand-navy: #020617;
+  --brand-steel: #64748b;
+  
+  --warn: #fbbf24;
+  --warn-soft: #38280a;
+  --ok: #4ade80;
+  --ok-soft: #0e331b;
+  --crit: #f87171;
+  --crit-soft: #3b1418;
+  --info: #60a5fa;
+  --info-soft: #14284d;
+
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -2px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -4px rgba(0, 0, 0, 0.4);
+
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.55;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  -webkit-font-smoothing: antialiased;
+}
+
+.wrap {
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--fg);
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+a:hover {
+  color: var(--accent-hover);
+}
+
+.mono {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ==========================================================================
+   SPLIT-SCREEN LOGIN PAGE (Section 2)
+   ========================================================================== */
+
+#login-container {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+}
+
+.login-split {
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* Left Industrial Branding Panel */
+.login-brand-panel {
+  flex: 1.1;
+  background: linear-gradient(135deg, #09131f 0%, #0f1f33 50%, #152c48 100%);
+  color: #ffffff;
+  padding: 60px 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+}
+
+.login-brand-panel::before {
+  content: "";
+  position: absolute;
+  top: -20%;
+  right: -20%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(2, 132, 199, 0.25) 0%, rgba(2, 132, 199, 0) 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.login-brand-panel::after {
+  content: "";
+  position: absolute;
+  bottom: -10%;
+  left: -10%;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.15) 0%, rgba(56, 189, 248, 0) 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.brand-header-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  font-size: 13px;
+  font-family: var(--font-mono);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #38bdf8;
+  backdrop-filter: blur(8px);
+}
+
+.brand-main-hero {
+  margin: 40px 0;
+  z-index: 1;
+}
+
+.company-title {
+  font-size: 15px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #94a3b8;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.portal-title {
+  font-size: 46px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  color: #ffffff;
+  margin-bottom: 16px;
+}
+
+.portal-title span {
+  background: linear-gradient(90deg, #38bdf8, #818cf8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.portal-subtitle {
+  font-size: 17px;
+  color: #cbd5e1;
+  max-width: 480px;
+  line-height: 1.6;
+}
+
+/* Industrial Live Metrics Preview in Left Panel */
+.brand-live-ticker {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  backdrop-filter: blur(10px);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 30px;
+  z-index: 1;
+}
+
+.ticker-item .val {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 700;
+  color: #38bdf8;
+}
+.ticker-item .lbl {
+  font-size: 11px;
+  font-family: var(--font-mono);
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-top: 2px;
+}
+
+.brand-footer-certs {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  z-index: 1;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 12px;
+  color: #94a3b8;
+  font-family: var(--font-mono);
+}
+
+/* Right Login Form Panel */
+.login-form-panel {
+  flex: 0.9;
+  background: var(--surface);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 50px 40px;
+  position: relative;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 420px;
+}
+
+.login-card-header {
+  margin-bottom: 28px;
+}
+
+.login-card-header h2 {
+  font-size: 28px;
+  letter-spacing: -0.02em;
+}
+
+.login-card-header p {
+  color: var(--muted);
+  font-size: 14px;
+  margin-top: 6px;
+}
+
+.form-group {
+  margin-bottom: 18px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--fg);
+  margin-bottom: 6px;
+}
+
+.input-icon-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-icon-wrapper input {
+  width: 100%;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  color: var(--fg);
+  font-family: var(--font-body);
+  font-size: 14px;
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.input-icon-wrapper input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+.toggle-pwd-btn {
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 500;
+  padding: 4px;
+}
+.toggle-pwd-btn:hover {
+  color: var(--fg);
+}
+
+.login-options-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 22px;
+  font-size: 13px;
+}
+
+.remember-me {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  color: var(--muted);
+}
+
+.forgot-pwd-link {
+  color: var(--accent);
+  font-weight: 500;
+  cursor: pointer;
+}
+.forgot-pwd-link:hover {
+  text-decoration: underline;
+}
+
+.btn-primary-block {
+  width: 100%;
+  background: var(--accent);
+  color: var(--accent-fg);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 15px;
+  padding: 13px;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background 0.15s, transform 0.05s;
+}
+
+.btn-primary-block:hover {
+  background: var(--accent-hover);
+}
+.btn-primary-block:active {
+  transform: translateY(1px);
+}
+.btn-primary-block:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Quick Demo Switcher on Login Page */
+.demo-accounts {
+  margin-top: 30px;
+  padding: 14px;
+  background: var(--surface-raised);
+  border: 1px dashed var(--line);
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  color: var(--muted);
+}
+.demo-accounts-title {
+  font-weight: 600;
+  color: var(--fg);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.demo-buttons {
+  display: flex;
+  gap: 8px;
+}
+.btn-demo-pill {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  color: var(--fg);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.btn-demo-pill:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* ==========================================================================
+   APP HEADER & NAVIGATION
+   ========================================================================== */
+
+#app-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+  box-shadow: var(--shadow-sm);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 0;
+  gap: 16px;
+}
+
+.header-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-logo-icon {
+  width: 36px;
+  height: 36px;
+  background: linear-gradient(135deg, var(--accent) 0%, #1e40af 100%);
+  color: #fff;
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 16px;
+  box-shadow: 0 2px 4px rgba(2, 132, 199, 0.3);
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-text .company {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 18px;
+  letter-spacing: -0.02em;
+  color: var(--fg);
+}
+
+.brand-text .sub {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.main-nav {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--muted);
+  font-weight: 600;
+  font-size: 14px;
+  padding: 8px 14px;
+  border-radius: var(--radius-sm);
+  transition: all 0.15s ease;
+  position: relative;
+}
+
+.nav-link:hover {
+  color: var(--fg);
+  background: var(--surface-raised);
+}
+
+.nav-link[aria-current="page"] {
+  color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.header-user-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.theme-toggle-btn {
+  background: var(--surface-raised);
+  border: 1px solid var(--line);
+  color: var(--fg);
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  font-size: 16px;
+  transition: border-color 0.15s, background 0.15s;
+}
+.theme-toggle-btn:hover {
+  border-color: var(--accent);
+}
+
+.user-badge {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.user-badge:hover {
+  background: var(--surface-raised);
+}
+
+.user-avatar-sm {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--accent-fg);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 13px;
+  display: grid;
+  place-items: center;
+}
+
+.user-meta-name {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.user-meta-name .uname {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--fg);
+  line-height: 1.2;
+}
+
+.user-meta-name .urole {
+  font-size: 11px;
+  font-family: var(--font-mono);
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.role-pill {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 2px 7px;
+  border-radius: var(--radius-full);
+}
+.role-pill.admin {
+  background: #fef3c7;
+  color: #92400e;
+  border: 1px solid #fde68a;
+}
+.role-pill.employee {
+  background: var(--accent-soft);
+  color: var(--accent);
+  border: 1px solid rgba(2, 132, 199, 0.2);
+}
+
+.btn-logout {
+  background: none;
+  border: 1px solid var(--line);
+  color: var(--muted);
+  padding: 7px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.btn-logout:hover {
+  border-color: var(--crit);
+  color: var(--crit);
+  background: var(--crit-soft);
+}
+
+/* ==========================================================================
+   MAIN DASHBOARD VIEWS
+   ========================================================================== */
+
+main {
+  flex: 1;
+  padding: 28px 0 60px;
+}
+
+.view {
+  display: block;
+  animation: fadeIn 0.2s ease-in-out;
+}
+.view[hidden], [hidden] {
+  display: none !important;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.page-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.page-head h1 {
+  font-size: 28px;
+  letter-spacing: -0.02em;
+}
+
+.page-head p {
+  color: var(--muted);
+  font-size: 14px;
+  margin-top: 4px;
+}
+
+.page-actions {
+  display: flex;
+  gap: 10px;
+}
+
+/* ==========================================================================
+   SHOP FLOOR BOARD (SECTION A)
+   ========================================================================== */
+
+/* Status cards grid */
+.status-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.stat-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: 18px 20px;
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.15s, border-color 0.15s, box-shadow 0.15s;
+}
+.stat-card:hover {
+  border-color: var(--accent);
+  box-shadow: var(--shadow-md);
+}
+
+.stat-card .k {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.stat-card .v {
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 6px 0 2px;
+  color: var(--fg);
+}
+
+.stat-card .s {
+  font-size: 13px;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.stat-card.incident-free .v {
+  color: var(--ok);
+}
+
+.stat-card.incident-free::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--ok);
+}
+
+.stat-card.delivery-card::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--accent);
+}
+
+.stat-card.machine-card::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--warn);
+}
+
+.stat-card.shift-card::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: #8b5cf6;
+}
+
+/* Two-column board */
+.board-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: 22px;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 24px;
+}
+
+.panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--line-subtle);
+}
+
+.panel-header h2 {
+  font-size: 18px;
+  letter-spacing: -0.01em;
+}
+
+/* Announcements & Filter Chips */
+.chips-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.chip {
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 5px 12px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.chip:hover {
+  color: var(--fg);
+  border-color: var(--muted);
+}
+.chip[aria-pressed="true"] {
+  background: var(--accent);
+  color: var(--accent-fg);
+  border-color: var(--accent);
+}
+
+.notice-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.notice-item {
+  display: grid;
+  grid-template-columns: 80px minmax(0, 1fr);
+  gap: 16px;
+  padding: 16px 0;
+  border-top: 1px solid var(--line-subtle);
+}
+.notice-item:first-child {
+  border-top: none;
+  padding-top: 4px;
+}
+
+.notice-item time {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--muted);
+  padding-top: 2px;
+}
+
+.notice-content h3 {
+  font-size: 16px;
+  margin-bottom: 6px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.notice-content p {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.5;
+  white-space: pre-line;
+  margin-bottom: 8px;
+}
+
+.notice-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.tag {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+  background: var(--surface-raised);
+  color: var(--muted);
+  border: 1px solid var(--line);
+}
+.tag.Safety {
+  background: var(--crit-soft);
+  color: var(--crit);
+  border-color: transparent;
+}
+.tag.Production {
+  background: var(--accent-soft);
+  color: var(--accent);
+  border-color: transparent;
+}
+.tag.Maintenance {
+  background: var(--warn-soft);
+  color: var(--warn);
+  border-color: transparent;
+}
+.tag.Quality {
+  background: #f3e8ff;
+  color: #7e22ce;
+  border-color: transparent;
+}
+.tag.HR {
+  background: var(--ok-soft);
+  color: var(--ok);
+  border-color: transparent;
+}
+.tag.pinned {
+  background: var(--fg);
+  color: var(--surface);
+  border-color: transparent;
+}
+
+/* Shifts list */
+.shifts-list {
+  list-style: none;
+  display: grid;
+  gap: 10px;
+}
+
+.shift-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--surface-raised);
+}
+
+.shift-row.active-now {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  box-shadow: 0 0 0 1px var(--accent);
+}
+
+.shift-row .shift-name {
+  font-weight: 600;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.badge-now {
+  font-size: 10px;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  text-transform: uppercase;
+  background: var(--accent);
+  color: #fff;
+  padding: 2px 6px;
+  border-radius: var(--radius-full);
+}
+
+.shift-row .shift-time {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* Events list */
+.events-list {
+  list-style: none;
+  display: grid;
+  gap: 14px;
+}
+
+.event-row {
+  display: grid;
+  grid-template-columns: 50px minmax(0, 1fr) auto;
+  gap: 14px;
+  align-items: center;
+}
+
+.event-date-box {
+  text-align: center;
+  background: var(--surface-raised);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 6px 0;
+  line-height: 1.1;
+}
+
+.event-date-box b {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 20px;
+  color: var(--fg);
+}
+
+.event-date-box span {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  color: var(--muted);
+  letter-spacing: 0.05em;
+}
+
+.event-details .ev-title {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--fg);
+}
+.event-details .ev-place {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* Emergency SOS contacts */
+.sos-list {
+  list-style: none;
+  display: grid;
+  gap: 10px;
+}
+
+.sos-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  background: var(--surface-raised);
+  border: 1px solid var(--line-subtle);
+}
+
+.sos-row .sos-title {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.sos-row .sos-num {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: var(--crit);
+}
+
+/* ==========================================================================
+   DIRECTORY (SECTION B)
+   ========================================================================== */
+
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.search-input-wrap {
+  flex: 1 1 280px;
+  position: relative;
+}
+
+.search-input-wrap input {
+  width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  color: var(--fg);
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+}
+.search-input-wrap input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.filter-select {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  color: var(--fg);
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  min-width: 180px;
+}
+.filter-select:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.people-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.person-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: 18px;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  transition: transform 0.15s, border-color 0.15s, box-shadow 0.15s;
+  position: relative;
+}
+.person-card:hover {
+  border-color: var(--accent);
+  box-shadow: var(--shadow-md);
+}
+
+.person-av {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  color: var(--accent);
+  display: grid;
+  place-items: center;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.person-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.person-info h3 {
+  font-size: 16px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.person-role {
+  color: var(--muted);
+  font-size: 13px;
+  margin-top: 2px;
+}
+
+.person-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 12px;
+  margin-top: 10px;
+  font-size: 12px;
+}
+
+.person-meta span {
+  font-family: var(--font-mono);
+  color: var(--muted);
+  overflow-wrap: anywhere;
+}
+
+.person-actions {
+  display: flex;
+  gap: 6px;
+  margin-top: 12px;
+}
+
+/* ==========================================================================
+   DOCUMENTS (SECTION C)
+   ========================================================================== */
+
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  min-width: 760px;
+}
+
+.data-table th, .data-table td {
+  padding: 13px 16px;
+  border-bottom: 1px solid var(--line-subtle);
+  font-size: 14px;
+  vertical-align: middle;
+}
+
+.data-table th {
+  background: var(--surface-raised);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+
+.data-table tbody tr:hover {
+  background: var(--surface-raised);
+}
+
+.doc-no {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.doc-path {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--muted);
+  word-break: break-all;
+}
+
+.assets-table-wrap { width: 100%; overflow-x: auto; }
+.assets-table { min-width: 2450px; }
+.assets-table th { white-space: nowrap; }
+.assets-table td { white-space: nowrap; font-size: 12px; }
+.asset-edit-input { min-width: 110px; width: 140px; padding: 7px 9px; }
+.assets-filter-bar { display: grid; grid-template-columns: minmax(220px, 300px) repeat(3, minmax(160px, 1fr)); gap: 12px; align-items: center; }
+.assets-filter-bar .search-input-wrap { min-width: 0; }
+.assets-filter-bar .filter-select { width: 100%; min-width: 0; }
+.assets-pagination { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 14px; color: var(--muted); font-size: 13px; }
+.assets-pagination-actions { display: flex; gap: 8px; }
+@media (max-width: 980px) { .assets-filter-bar { grid-template-columns: minmax(220px, 1fr) repeat(2, minmax(160px, 1fr)); } }
+@media (max-width: 700px) { .assets-filter-bar { grid-template-columns: 1fr; } .assets-pagination { align-items: flex-start; flex-direction: column; } }
+
+/* ==========================================================================
+   HELPDESK & SUGGESTIONS (SECTIONS D & E)
+   ========================================================================== */
+
+.split-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+  gap: 24px;
+  align-items: start;
+}
+
+.ticket-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: 16px 18px;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: border-color 0.15s;
+}
+.ticket-card:hover {
+  border-color: var(--accent);
+}
+
+.ticket-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.ticket-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--fg);
+}
+
+.ticket-detail {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.5;
+  white-space: pre-line;
+}
+
+.ticket-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  font-size: 12px;
+  color: var(--muted);
+  padding-top: 6px;
+  border-top: 1px solid var(--line-subtle);
+}
+
+.status-pill {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  text-transform: uppercase;
+}
+.status-pill.Open {
+  background: var(--warn-soft);
+  color: var(--warn);
+}
+.status-pill.InProgress, .status-pill.In-progress {
+  background: var(--info-soft);
+  color: var(--info);
+}
+.status-pill.Done {
+  background: var(--ok-soft);
+  color: var(--ok);
+}
+
+/* ==========================================================================
+   HR AND HOLIDAYS (SECTION F)
+   ========================================================================== */
+
+.holiday-list {
+  list-style: none;
+  display: grid;
+  gap: 10px;
+}
+
+.holiday-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--surface-raised);
+}
+
+.holiday-row .h-name {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.holiday-row .h-date {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* ==========================================================================
+   QUICK LINKS (SECTION G)
+   ========================================================================== */
+
+.links-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 24px;
+}
+
+.link-group-title {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.link-items-col {
+  display: grid;
+  gap: 10px;
+}
+
+.quick-link-card {
+  display: block;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: 14px 18px;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.15s ease;
+  position: relative;
+}
+.quick-link-card:hover {
+  border-color: var(--accent);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.quick-link-card b {
+  font-family: var(--font-display);
+  font-size: 15px;
+  color: var(--fg);
+  display: block;
+  margin-bottom: 2px;
+}
+
+.quick-link-card span {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* ==========================================================================
+   BUTTONS, INPUTS, FORMS
+   ========================================================================== */
+
+.btn {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all 0.15s ease;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: var(--accent-fg);
+}
+.btn-primary:hover {
+  background: var(--accent-hover);
+}
+
+.btn-outline {
+  background: transparent;
+  border: 1px solid var(--line);
+  color: var(--fg);
+}
+.btn-outline:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--accent);
+  border: 1px solid transparent;
+  padding: 4px 8px;
+  font-size: 12px;
+}
+.btn-ghost:hover {
+  background: var(--accent-soft);
+}
+
+.btn-danger {
+  color: var(--crit);
+}
+.btn-danger:hover {
+  background: var(--crit-soft);
+  border-color: var(--crit);
+}
+
+.form-control, select, textarea {
+  width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  color: var(--fg);
+  font-family: var(--font-body);
+  font-size: 14px;
+  padding: 9px 12px;
+  border-radius: var(--radius-sm);
+  transition: border-color 0.15s;
+}
+.form-control:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+.form-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+.form-field label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--fg);
+}
+
+.form-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+/* ==========================================================================
+   MODAL DIALOGS
+   ========================================================================== */
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: fadeIn 0.15s ease-out;
+}
+
+.modal-container {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  width: 100%;
+  max-width: 540px;
+  box-shadow: var(--shadow-xl);
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.modal-header {
+  padding: 18px 24px;
+  border-bottom: 1px solid var(--line-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.modal-header h3 {
+  font-size: 18px;
+}
+
+.modal-close-btn {
+  background: none;
+  border: none;
+  color: var(--muted);
+  font-size: 20px;
+  cursor: pointer;
+}
+.modal-close-btn:hover {
+  color: var(--fg);
+}
+
+.modal-body {
+  padding: 20px 24px;
+  overflow-y: auto;
+}
+
+.modal-footer {
+  padding: 14px 24px;
+  border-top: 1px solid var(--line-subtle);
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  background: var(--surface-raised);
+}
+
+/* ==========================================================================
+   TOAST NOTIFICATIONS
+   ========================================================================== */
+
+#toast-container {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 2000;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  pointer-events: none;
+}
+
+.toast {
+  pointer-events: auto;
+  background: var(--surface);
+  color: var(--fg);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-lg);
+  border-radius: var(--radius-sm);
+  padding: 12px 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  min-width: 280px;
+  max-width: 420px;
+  animation: slideInRight 0.2s ease-out;
+}
+
+.toast.toast-success {
+  border-left: 4px solid var(--ok);
+}
+.toast.toast-error {
+  border-left: 4px solid var(--crit);
+}
+.toast.toast-info {
+  border-left: 4px solid var(--accent);
+}
+
+@keyframes slideInRight {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+/* Empty states */
+.empty-state {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+/* ==========================================================================
+   RESPONSIVE LAYOUTS
+   ========================================================================== */
+
+@media (max-width: 900px) {
+  #login-container {
+    flex-direction: column;
+  }
+  .login-split {
+    flex-direction: column;
+  }
+  .login-brand-panel {
+    flex: none;
+    padding: 40px 24px;
+  }
+  .portal-title {
+    font-size: 32px;
+  }
+  .brand-live-ticker {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .login-form-panel {
+    flex: none;
+    padding: 40px 20px;
+  }
+  .board-layout, .split-layout {
+    grid-template-columns: 1fr;
+  }
+  .main-nav {
+    overflow-x: auto;
+    white-space: nowrap;
+    padding-bottom: 4px;
+  }
+}
+
+@media (max-width: 600px) {
+  .header-inner {
+    flex-wrap: wrap;
+  }
+  .main-nav {
+    order: 3;
+    width: 100%;
+  }
+  .form-grid-2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* MT CNC-Group login refresh */
+#login-container { display: grid; place-items: center; min-height: 100vh; width: 100%; padding: 36px 0; background: radial-gradient(ellipse at 16% 12%,#10374a 0%,transparent 40%),linear-gradient(135deg,#061626,#091b2e 58%,#07182a); }
+.login-split { display: grid; grid-template-columns: 1.04fr .96fr; width: min(1320px,calc(100% - 64px)); min-height: min(756px,calc(100svh - 72px)); margin: auto; overflow: hidden; border: 1px solid rgba(169,204,222,.19); border-radius: 32px; background: #0a1e32; box-shadow: 0 28px 90px rgba(0,0,0,.34); }
+.login-brand-panel { isolation: isolate; display: flex; flex-direction: column; justify-content: space-between; position: relative; overflow: hidden; min-height: 100%; padding: clamp(36px,4vw,64px); color: #fff; background: linear-gradient(145deg,#105066 0%,#123c5c 45%,#1a2853 100%); }
+.login-brand-panel::before,.login-brand-panel::after { content: ""; position: absolute; z-index: -1; border-radius: 50%; pointer-events: none; }
+.login-brand-panel::before { width: 600px; height: 600px; right: -260px; top: 12%; background: radial-gradient(circle,rgba(12,190,205,.22),transparent 68%); }
+.login-brand-panel::after { width: 460px; height: 460px; bottom: -260px; left: -180px; background: radial-gradient(circle,rgba(30,113,202,.24),transparent 70%); }
+.brand-topline { display: flex; align-items: center; gap: 18px; position: relative; z-index: 2; }
+.brand-mark { display: grid; place-items: center; width: 48px; height: 48px; border: 1px solid #ffffff3d; border-radius: 14px; background: #ffffff1a; color: #8ae8ee; font: 700 17px var(--font-display); letter-spacing: -.04em; box-shadow: 0 8px 24px #06111e40; }
+.brand-header-badge { display: inline-flex; align-items: center; gap: 8px; padding: 9px 13px; border: 1px solid #b8e4ed2b; border-radius: 999px; background: #ffffff0e; color: #d5e9f2; font: 600 10px var(--font-body); letter-spacing: .105em; }
+.status-dot { width: 7px; height: 7px; border-radius: 50%; background: #48d6c4; box-shadow: 0 0 12px #48d6c4a8; }
+.badge-divider { opacity: .42; }
+.brand-main-hero { position: relative; z-index: 2; margin: auto 0; padding: 72px 0; max-width: 600px; }
+.company-title { margin: 0 0 26px; color: #9fb6c7; font-size: 12px; font-weight: 700; letter-spacing: .2em; }
+.portal-title { margin: 0; color: #fff; font: 600 clamp(56px,6.4vw,86px)/.98 var(--font-display); letter-spacing: -.065em; }
+.portal-title span { color: #7ce1e7; background: linear-gradient(100deg,#a1f1ea,#62c8e8 76%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.portal-subtitle { max-width: 410px; margin: 27px 0 30px; color: #bdcbd8; font-size: 16px; line-height: 1.75; }
+.secure-access-badge { display: inline-flex; align-items: center; gap: 12px; padding: 12px 16px; border: 1px solid #ade1e933; border-radius: 13px; background: #ffffff12; backdrop-filter: blur(12px); }
+.secure-icon { display: grid; place-items: center; width: 34px; height: 34px; color: #78e1dc; }
+.secure-icon svg { width: 25px; height: 25px; }
+.secure-access-badge strong,.secure-access-badge small { display: block; }
+.secure-access-badge strong { color: #f4fbff; font-size: 12px; font-weight: 600; }
+.secure-access-badge small { margin-top: 3px; color: #9bb2c4; font-size: 11px; }
+.brand-footer { position: relative; z-index: 2; display: flex; gap: 12px; padding-top: 22px; border-top: 1px solid #ffffff21; color: #b7c9d7; font-size: 12px; letter-spacing: .08em; }
+.brand-footer span + span::before { content: "·"; margin-right: 12px; color: #5bbfc9; }
+.brand-orbit { position: absolute; z-index: -1; border: 1px solid #64cddb1c; border-radius: 50%; transform: rotate(-28deg); animation: orbit-drift 18s ease-in-out infinite alternate; }
+.orbit-one { width: 420px; height: 270px; right: -110px; top: 27%; }
+.orbit-two { width: 520px; height: 330px; right: -155px; top: 22%; animation-delay: -7s; }
+.brand-grid { position: absolute; z-index: -1; inset: 0; opacity: .15; background-image: linear-gradient(#97cfdc17 1px,transparent 1px),linear-gradient(90deg,#97cfdc17 1px,transparent 1px); background-size: 64px 64px; mask-image: linear-gradient(90deg,transparent,#000 100%); }
+@keyframes orbit-drift { from { transform: rotate(-28deg) translateY(-5px); } to { transform: rotate(-22deg) translateY(8px); } }
+.login-form-panel { display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; padding: 60px clamp(30px,5vw,78px); background: #091d31; }
+.login-card { width: 100%; max-width: 430px; }
+.login-card-header { margin-bottom: 34px; }
+.form-eyebrow { color: #079a9c; font-size: 10px; font-weight: 700; letter-spacing: .17em; }
+.login-card-header h2 { margin: 10px 0 8px; color: #f4f8fc; font: 600 36px/1.15 var(--font-display); letter-spacing: -.045em; }
+.login-card-header p { max-width: 370px; margin: 0; color: #a5b8c9; font-size: 14px; line-height: 1.65; }
+.login-form-panel .form-group { margin-bottom: 21px; }
+.login-form-panel .form-group label { display: block; margin-bottom: 8px; color: #d4e0eb; font-size: 12px; font-weight: 650; }
+.input-icon-wrapper { position: relative; display: flex; align-items: center; }
+.field-icon { position: absolute; left: 15px; z-index: 1; display: flex; color: #8b9bad; pointer-events: none; }
+.field-icon svg { width: 19px; height: 19px; }
+.input-icon-wrapper input { width: 100%; height: 54px; padding: 0 46px; border: 1px solid #293d52; border-radius: 11px; background: #071729; color: #edf5fb; font: 14px var(--font-body); box-shadow: 0 2px 5px #0002; transition: border-color .2s,box-shadow .2s,background .2s; }
+.input-icon-wrapper input::placeholder { color: #8196aa; }
+.input-icon-wrapper input:focus { outline: none; border-color: #20b6b4; background: #081a2d; box-shadow: 0 0 0 4px #12aab01f; }
+.field-hint { display: block; margin-top: 7px; color: #91a5b8; font-size: 11px; }
+.toggle-pwd-btn { position: absolute; right: 12px; padding: 7px; border: 0; border-radius: 6px; background: transparent; color: #168e97; font-size: 11px; font-weight: 700; cursor: pointer; }
+.toggle-pwd-btn:hover { background: #eaf7f7; }
+.login-options-row { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin: 3px 0 24px; font-size: 12px; }
+.remember-me { display: inline-flex; align-items: center; gap: 8px; color: #adbdcc; cursor: pointer; }
+.remember-me input { width: 15px; height: 15px; margin: 0; accent-color: #078f9a; }
+.forgot-pwd-link { padding: 4px 0; border: 0; background: none; color: #078c96; font: 650 12px var(--font-body); cursor: pointer; }
+.forgot-pwd-link:hover { text-decoration: underline; }
+.btn-primary-block { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; min-height: 54px; padding: 14px 18px; border: 0; border-radius: 11px; background: linear-gradient(105deg,#087c91,#079eaa 55%,#10b8ad); color: #fff; font: 650 14px var(--font-body); box-shadow: 0 9px 22px #08859733; cursor: pointer; transition: transform .18s,box-shadow .18s,filter .18s; }
+.btn-primary-block:hover { transform: translateY(-1px); filter: saturate(1.12); box-shadow: 0 12px 26px #08859745; }
+.btn-primary-block:active { transform: translateY(0); }
+.btn-primary-block:disabled { opacity: .65; cursor: wait; }
+.button-arrow { font-size: 18px; line-height: 1; transition: transform .18s; }
+.btn-primary-block:hover .button-arrow { transform: translateX(3px); }
+.login-security-note { display: flex; align-items: center; justify-content: center; gap: 8px; margin: 32px 0 0; color: #91a5b8; font-size: 11px; text-align: center; }
+.login-security-note svg { width: 16px; height: 16px; flex: 0 0 auto; color: #0d9d9d; }
+.login-demo-credentials { margin: 14px 0 0; padding: 11px 14px; border: 1px solid rgba(123, 158, 188, .2); border-radius: 12px; background: rgba(255,255,255,.035); color: #a8bdd0; font-size: 12px; line-height: 1.65; text-align: center; }
+.login-demo-credentials strong { color: #e5f2fb; font-weight: 650; }
+.form-panel-footer { position: absolute; bottom: 22px; color: #8195a8; font-size: 9px; letter-spacing: .08em; }
+.form-panel-footer span { padding: 0 5px; color: #16a0a5; }
+@media (max-width: 900px) {
+  .login-split { width: calc(100% - 40px); min-height: min(756px,calc(100svh - 48px)); }
+  .login-brand-panel { padding: 38px 30px; }
+  .login-form-panel { padding: 50px 32px; }
+  .brand-header-badge { font-size: 8px; letter-spacing: .07em; }
+  .portal-title { font-size: clamp(50px,7vw,68px); }
+}
+@media (max-width: 700px) {
+  #login-container { display: block; padding: 14px 0; }
+  .login-split { grid-template-columns: 1fr; }
+  .login-split { width: calc(100% - 28px); min-height: 0; border-radius: 22px; }
+  .login-brand-panel { min-height: 320px; padding: 24px 26px 22px; }
+  .brand-main-hero { padding: 34px 0 25px; }
+  .company-title { margin-bottom: 13px; font-size: 10px; }
+  .portal-title { font-size: 48px; }
+  .portal-subtitle { max-width: 360px; margin: 15px 0 0; font-size: 13px; }
+  .secure-access-badge { display: none; }
+  .brand-mark { width: 38px; height: 38px; border-radius: 11px; font-size: 14px; }
+  .brand-header-badge { font-size: 8px; }
+  .brand-footer { padding-top: 13px; font-size: 10px; }
+  .brand-orbit { opacity: .5; }
+  .login-form-panel { min-height: 570px; padding: 48px 25px 72px; }
+  .login-card-header { margin-bottom: 27px; }
+  .form-panel-footer { bottom: 19px; }
+}
+@media (max-width: 380px) { .brand-topline { gap: 10px; } .brand-header-badge { gap: 5px; font-size: 7px; letter-spacing: .04em; } .login-form-panel { padding-right: 19px; padding-left: 19px; } }
+@media (prefers-reduced-motion: reduce) { .brand-orbit { animation: none; } .btn-primary-block,.input-icon-wrapper input { transition: none; } }
+
+/* Quick Links and RDP connectivity, scoped to Section G */
+#view-links.view { min-height: calc(100vh - 82px); margin: 0 auto 28px; padding: 30px; border: 1px solid #253447; border-radius: 16px; background: #0b111b; color: #e7edf5; }
+#view-links .page-head { margin-bottom: 25px; }
+#view-links .page-head h1 { color: #f2f6fb; }
+#view-links .page-head p { color: #9aaabd; }
+#view-links .links-grid { grid-template-columns: repeat(3,minmax(0,1fr)); align-items: start; gap: 20px; }
+#view-links .link-group-col { min-width: 0; }
+#view-links .link-group-title { min-height: 30px; margin-bottom: 12px; color: #aab8ca; font-family: var(--font-body); font-size: 11px; letter-spacing: .13em; }
+#view-links .link-items-col { gap: 10px; }
+#view-links .quick-link-item { position: relative; min-width: 0; }
+#view-links .quick-link-card { min-height: 76px; padding: 15px 16px; border: 1px solid #263447; border-radius: 10px; background: #101a28; box-shadow: none; }
+#view-links .quick-link-card:hover { border-color: #3676a8; background: #132136; box-shadow: 0 7px 18px #0003; transform: translateY(-1px); }
+#view-links .quick-link-card b { margin-bottom: 4px; color: #e5ebf3; font-family: var(--font-body); font-size: 13px; line-height: 1.4; }
+#view-links .quick-link-card span { display: block; color: #94a4b7; font-size: 11px; line-height: 1.45; overflow-wrap: anywhere; }
+#view-links .quick-link-delete { position: absolute; top: 5px; right: 5px; width: 27px; height: 27px; padding: 0; opacity: .8; }
+#view-links .rdp-section { margin-top: 35px; padding-top: 24px; border-top: 1px solid #263447; }
+#view-links .rdp-section-heading { margin-bottom: 17px; }
+#view-links .rdp-section-heading h2 { margin-bottom: 6px; color: #edf3f9; font-size: 20px; }
+#view-links .rdp-section-heading p { max-width: 900px; color: #91a1b4; font-size: 12px; line-height: 1.65; }
+#view-links .rdp-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 15px; }
+#view-links .rdp-card { min-width: 0; padding: 16px; border: 1px solid #283648; border-radius: 11px; background: #101925; }
+#view-links .rdp-card-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 15px; }
+#view-links .rdp-card-head h3 { color: #e6edf4; font: 650 13px var(--font-body); }
+#view-links .rdp-status { display: inline-flex; align-items: center; gap: 6px; padding: 4px 8px; border: 1px solid #1d593f; border-radius: 999px; background: #102a20; color: #74d9a0; font-size: 10px; font-weight: 650; white-space: nowrap; }
+#view-links .rdp-status span { width: 6px; height: 6px; border-radius: 50%; background: #43c982; box-shadow: 0 0 7px #43c98288; }
+#view-links .rdp-endpoint { display: grid; grid-template-columns: minmax(0,1fr) auto; align-items: center; gap: 6px 8px; margin-top: 11px; }
+#view-links .rdp-endpoint-label { grid-column: 1/-1; color: #92a2b5; font-size: 10px; font-weight: 600; }
+#view-links .rdp-endpoint code { min-width: 0; color: #d3deea; font: 11px var(--font-mono); overflow-wrap: anywhere; }
+#view-links .rdp-copy-btn { padding: 5px 8px; border: 1px solid #3673a5; border-radius: 6px; background: #0d1b2b; color: #89c8f1; font: 600 10px var(--font-body); white-space: nowrap; cursor: pointer; transition: background .15s,border-color .15s; }
+#view-links .rdp-copy-btn:hover { border-color: #5ba5d7; background: #152a40; }
+#view-links .rdp-copy-btn:focus-visible { outline: 2px solid #61b9ee; outline-offset: 2px; }
+#view-links .rdp-note { margin-top: 14px; padding: 9px 10px; border-left: 2px solid #e9a544; border-radius: 0 5px 5px 0; background: #2b2115; color: #e8b96f; font-size: 10px; line-height: 1.5; }
+@media (max-width: 980px) {
+  #view-links.view { padding: 24px; }
+  #view-links .links-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  #view-links .rdp-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+}
+@media (max-width: 620px) {
+  #view-links.view { padding: 19px 15px; }
+  #view-links .links-grid,#view-links .rdp-grid { grid-template-columns: 1fr; }
+  #view-links .rdp-section { margin-top: 27px; padding-top: 20px; }
+  #view-links .page-head { align-items: flex-start; gap: 12px; }
+}
+
+/* Match Quick Links to the selected light theme */
+:root:not([data-theme="dark"]) #view-links.view {
+  border-color: #d8e1eb;
+  background: #f1f5f9;
+  color: #17263a;
+}
+:root:not([data-theme="dark"]) #view-links .page-head h1,
+:root:not([data-theme="dark"]) #view-links .rdp-section-heading h2 { color: #16283e; }
+:root:not([data-theme="dark"]) #view-links .page-head p,
+:root:not([data-theme="dark"]) #view-links .rdp-section-heading p { color: #5e6f83; }
+:root:not([data-theme="dark"]) #view-links .link-group-title { color: #53677e; }
+:root:not([data-theme="dark"]) #view-links .quick-link-card,
+:root:not([data-theme="dark"]) #view-links .rdp-card {
+  border-color: #d6e0e9;
+  background: #fff;
+}
+:root:not([data-theme="dark"]) #view-links .quick-link-card:hover {
+  border-color: #75a9ce;
+  background: #f8fbff;
+  box-shadow: 0 7px 18px #17395612;
+}
+:root:not([data-theme="dark"]) #view-links .quick-link-card b,
+:root:not([data-theme="dark"]) #view-links .rdp-card-head h3 { color: #1c3047; }
+:root:not([data-theme="dark"]) #view-links .quick-link-card span,
+:root:not([data-theme="dark"]) #view-links .rdp-endpoint-label { color: #61748a; }
+:root:not([data-theme="dark"]) #view-links .rdp-section { border-color: #d6e0e9; }
+:root:not([data-theme="dark"]) #view-links .rdp-status { border-color: #b8dfc9; background: #edf9f1; color: #237547; }
+:root:not([data-theme="dark"]) #view-links .rdp-endpoint code { color: #2b3e54; }
+:root:not([data-theme="dark"]) #view-links .rdp-copy-btn { border-color: #8db8d8; background: #f2f8fd; color: #245f8e; }
+:root:not([data-theme="dark"]) #view-links .rdp-copy-btn:hover { border-color: #568fb9; background: #e7f2fa; }
+:root:not([data-theme="dark"]) #view-links .rdp-note { border-left-color: #d99b37; background: #fff7e8; color: #875b14; }
+
+</style>
+  <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+
+  <!-- =====================================================================
+       2. LOGIN PAGE (SPLIT-SCREEN)
+       ===================================================================== -->
+  <div id="login-container">
+    <div class="login-split">
+      <section class="login-brand-panel" aria-label="Micro-Tech CNC company information">
+        <div class="brand-topline">
+          <div class="brand-mark" aria-hidden="true">MT</div>
+          <div class="brand-header-badge"><span class="status-dot"></span> MT CNC-GROUP <span class="badge-divider">|</span> EMPLOYEE INTRANET</div>
+        </div>
+        <div class="brand-main-hero">
+          <p class="company-title">MICRO-TECH CNC PVT. LTD.</p>
+          <h1 class="portal-title">Welcome<br><span>Back!</span></h1>
+          <p class="portal-subtitle">Your workplace, information and resources — all in one place.</p>
+          <div class="secure-access-badge">
+            <span class="secure-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M12 3 19 6v5c0 4.6-2.9 8.1-7 10-4.1-1.9-7-5.4-7-10V6l7-3Z" stroke="currentColor" stroke-width="1.7"/><path d="m9 12 2 2 4-4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            <span><strong>Secure company access</strong><small>For authorized employees only</small></span>
+          </div>
+        </div>
+        <div class="brand-footer"><span>Precision.</span><span>Productivity.</span><span>People.</span></div>
+        <div class="brand-orbit orbit-one" aria-hidden="true"></div>
+        <div class="brand-orbit orbit-two" aria-hidden="true"></div>
+        <div class="brand-grid" aria-hidden="true"></div>
+      </section>
+
+      <section class="login-form-panel" aria-labelledby="loginHeading">
+        <div class="login-card">
+          <div class="login-card-header">
+            <span class="form-eyebrow">EMPLOYEE PORTAL</span>
+            <h2 id="loginHeading">Sign in</h2>
+            <p>Enter your employee credentials to access the company dashboard.</p>
+          </div>
+          <form id="loginForm" autocomplete="on">
+            <div class="form-group">
+              <label for="loginEmpId">User ID</label>
+              <div class="input-icon-wrapper">
+                <span class="field-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="3.2" stroke="currentColor" stroke-width="1.7"/><path d="M5.5 20c.5-3.3 2.8-5 6.5-5s6 1.7 6.5 5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M18 5.5h2.5M19.25 4.25v2.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+                <input type="text" id="loginEmpId" name="employee_id" placeholder="Enter your User ID" maxlength="120" required autofocus autocomplete="username" aria-describedby="empIdValidationMsg">
+              </div>
+              <small id="empIdValidationMsg" class="field-hint">Enter the User ID assigned to your account.</small>
+            </div>
+            <div class="form-group">
+              <label for="loginPassword">Password</label>
+              <div class="input-icon-wrapper">
+                <span class="field-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><rect x="5" y="10" width="14" height="11" rx="2" stroke="currentColor" stroke-width="1.7"/><path d="M8 10V7a4 4 0 1 1 8 0v3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><circle cx="12" cy="15.5" r="1" fill="currentColor"/></svg></span>
+                <input type="password" id="loginPassword" placeholder="Enter your password" required autocomplete="current-password">
+                <button type="button" class="toggle-pwd-btn" id="togglePasswordBtn" title="Show password" aria-label="Show password" aria-pressed="false">Show</button>
+              </div>
+            </div>
+            <div class="login-options-row">
+              <label class="remember-me"><input type="checkbox" id="rememberMe"> <span>Remember me</span></label>
+              <button type="button" class="forgot-pwd-link" id="forgotPwdBtn">Forgot Password?</button>
+            </div>
+            <button type="submit" class="btn-primary-block" id="loginSubmitBtn"><span>Sign in to Dashboard</span><span class="button-arrow" aria-hidden="true">→</span></button>
+            <p class="login-demo-credentials" aria-label="Employee login credentials">Employee login: <strong>Employee ID 00000101</strong> · Password <strong>User@123</strong></p>
+            <p class="login-security-note"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3 19 6v5c0 4.6-2.9 8.1-7 10-4.1-1.9-7-5.4-7-10V6l7-3Z" stroke="currentColor" stroke-width="1.7"/><path d="m9 12 2 2 4-4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>Your connection is protected with secure authentication.</p>
+          </form>
+        </div>
+        <div class="form-panel-footer">© MICRO-TECH CNC PVT. LTD. <span>·</span> MT CNC-GROUP</div>
+      </section>
+    </div>
+  </div>
+
+  <!-- =====================================================================
+       MAIN INTRANET APPLICATION (INTERNAL PORTAL)
+       ===================================================================== -->
+  <div id="app-wrapper" hidden>
+    <!-- Top Sticky Header Bar -->
+    <header id="app-header">
+      <div class="wrap header-inner">
+        <div class="header-brand">
+          <div class="brand-logo-icon">MT</div>
+          <div class="brand-text">
+            <span class="company">MT CNC-Group</span>
+            <span class="sub">Microtech CNC Pvt. Ltd.</span>
+          </div>
+        </div>
+
+        <nav class="main-nav" aria-label="Main Navigation">
+          <a href="#home" class="nav-link" data-nav="home">Home</a>
+          <a href="#directory" class="nav-link" data-nav="directory">Directory</a>
+          <a href="#documents" class="nav-link" data-nav="documents">Documents</a>
+          <a href="#assets" class="nav-link" data-nav="assets">Assets</a>
+          <a href="#helpdesk" class="nav-link" data-nav="helpdesk">Helpdesk</a>
+          <a href="#suggestions" class="nav-link" data-nav="suggestions">Suggestions</a>
+          <a href="#hr" class="nav-link" data-nav="hr">HR</a>
+          <a href="#links" class="nav-link" data-nav="links">Quick Links</a>
+        </nav>
+
+        <div class="header-user-actions">
+          <button type="button" class="theme-toggle-btn" id="themeToggleBtn" title="Toggle Theme" aria-label="Toggle Dark/Light Mode">
+            <span id="themeIcon">🌙</span>
+          </button>
+
+          <div class="user-badge" id="userProfileBtn" title="View Profile">
+            <div class="user-avatar-sm" id="headerUserAvatar">AD</div>
+            <div class="user-meta-name">
+              <span class="uname" id="headerUserName">Administrator</span>
+              <div style="display:flex; align-items:center; gap:4px;">
+                <span class="role-pill admin" id="headerUserRole">Admin</span>
+                <span class="urole mono" id="headerUserEmpId">EMP001</span>
+              </div>
+            </div>
+          </div>
+
+          <button type="button" class="btn-logout" id="logoutBtn" title="Sign out">Logout</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="wrap">
+      <!-- =================================================================
+           SECTION A: HOME / SHOP FLOOR BOARD
+           ================================================================= -->
+      <section class="view" id="view-home">
+        <div class="page-head">
+          <div>
+            <h1>Shop Floor Board</h1>
+            <p id="todayDateStr" class="mono"></p>
+          </div>
+          <div class="page-actions" data-admin-only hidden>
+            <button type="button" class="btn btn-outline" id="openBoardModalBtn">
+              ⚙️ Update Board Figures
+            </button>
+          </div>
+        </div>
+
+        <!-- Four Key Status Metrics -->
+        <div class="status-grid">
+          <div class="stat-card incident-free">
+            <div class="k">
+              <span>Lost-Time Incident Free</span>
+              <span style="font-size:16px;">🛡️</span>
+            </div>
+            <div class="v" id="stDays">-</div>
+            <div class="s" id="stDaysNote">Days since last incident</div>
+          </div>
+
+          <div class="stat-card shift-card">
+            <div class="k">
+              <span>Current Shift</span>
+              <span style="font-size:16px;">⏱️</span>
+            </div>
+            <div class="v" id="shiftNow">-</div>
+            <div class="s" id="shiftTime"></div>
+          </div>
+
+          <div class="stat-card delivery-card">
+            <div class="k">
+              <span>On-Time Delivery</span>
+              <span style="font-size:16px;">📦</span>
+            </div>
+            <div class="v" id="stDel">-</div>
+            <div class="s" id="stDelNote">Target: 95.0%</div>
+          </div>
+
+          <div class="stat-card machine-card">
+            <div class="k">
+              <span>Machines Down</span>
+              <span style="font-size:16px;">⚙️</span>
+            </div>
+            <div class="v" id="stMac">-</div>
+            <div class="s" id="stMacNote">All systems operational</div>
+          </div>
+        </div>
+
+        <div class="board-layout">
+          <!-- Announcements Column -->
+          <div class="panel">
+            <div class="panel-header">
+              <h2>Announcements</h2>
+              <div data-admin-only hidden>
+                <button type="button" class="btn btn-primary" id="openAnnModalBtn">+ Post Announcement</button>
+              </div>
+            </div>
+
+            <!-- Filter Chips -->
+            <div class="chips-container" id="noticeChips" role="group" aria-label="Filter announcements"></div>
+            
+            <!-- Announcements List -->
+            <div class="notice-list" id="noticesList"></div>
+          </div>
+
+          <!-- Side Stack: Shifts, Coming Up, SOS -->
+          <div>
+            <!-- Shifts Card -->
+            <div class="panel">
+              <div class="panel-header">
+                <h2>Shift Timings</h2>
+              </div>
+              <ul class="shifts-list" id="shiftsList"></ul>
+            </div>
+
+            <!-- Coming Up Events Card -->
+            <div class="panel">
+              <div class="panel-header">
+                <h2>Coming Up</h2>
+                <div data-admin-only hidden>
+                  <button type="button" class="btn btn-outline" id="openEventModalBtn">+ Add Event</button>
+                </div>
+              </div>
+              <ul class="events-list" id="eventsList"></ul>
+            </div>
+
+            <!-- Emergency SOS Card -->
+            <div class="panel">
+              <div class="panel-header">
+                <h2>Emergency & SOS</h2>
+              </div>
+              <ul class="sos-list" id="sosList"></ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================
+           SECTION B: EMPLOYEE DIRECTORY
+           ================================================================= -->
+      <section class="view" id="view-directory" hidden>
+        <div class="page-head">
+          <div>
+            <h1>Employee Directory</h1>
+            <p>Find plant colleagues by name, designation, department, extension or shift.</p>
+          </div>
+          <div class="page-actions">
+            <div data-admin-only hidden>
+              <button type="button" class="btn btn-primary" id="openAddEmpModalBtn">+ Add Employee</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="filter-bar">
+          <div class="search-input-wrap">
+            <input type="search" id="peopleSearch" placeholder="Search name, designation, extension, or ID..." aria-label="Search employee directory">
+          </div>
+          <select id="peopleDept" class="filter-select" aria-label="Filter by department"></select>
+          <select id="peopleShift" class="filter-select" aria-label="Filter by shift">
+            <option value="All">All Shifts</option>
+            <option value="General">General</option>
+            <option value="Shift A">Shift A</option>
+            <option value="Shift B">Shift B</option>
+            <option value="Shift C">Shift C</option>
+          </select>
+          <span class="mono" id="peopleCount" style="font-size:13px; color:var(--muted); margin-left:auto;"></span>
+        </div>
+
+        <div class="people-grid" id="peopleGrid"></div>
+      </section>
+
+      <!-- =================================================================
+           SECTION C: DOCUMENTS AND POLICIES
+           ================================================================= -->
+      <section class="view" id="view-documents" hidden>
+        <div class="page-head">
+          <div>
+            <h1>Documents and Policies</h1>
+            <p>Controlled standard operating procedures (SOP), quality manuals, HR policies, and forms.</p>
+          </div>
+          <div class="page-actions" data-admin-only hidden>
+            <button type="button" class="btn btn-primary" id="openAddDocModalBtn">+ Add Document</button>
+          </div>
+        </div>
+
+        <div class="filter-bar">
+          <div class="search-input-wrap">
+            <input type="search" id="docSearch" placeholder="Search document number, title, or path..." aria-label="Search documents">
+          </div>
+          <select id="docCat" class="filter-select" aria-label="Filter by category"></select>
+          <span class="mono" id="docCount" style="font-size:13px; color:var(--muted); margin-left:auto;"></span>
+        </div>
+
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Doc No.</th>
+                <th>Title</th>
+                <th>Category</th>
+                <th>Rev</th>
+                <th>Updated</th>
+                <th>Server File Location</th>
+                <th style="text-align:right;">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="docsTableBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Assets (administrator inventory) -->
+      <section class="view" id="view-assets" hidden>
+        <div class="page-head">
+          <div>
+            <h1>Assets</h1>
+            <p>Company Endpoint and Asset Inventory.</p>
+          </div>
+        </div>
+
+        <div class="filter-bar assets-filter-bar">
+          <div class="search-input-wrap">
+            <input type="search" id="assetSearch" placeholder="Search endpoints, IPs, users, serials..." aria-label="Search assets">
+          </div>
+          <select id="assetStatusFilter" class="filter-select" aria-label="Filter by endpoint status"><option value="All">All statuses</option></select>
+          <select id="assetOsFilter" class="filter-select" aria-label="Filter by operating system"><option value="All">All operating systems</option></select>
+          <select id="assetPolicyFilter" class="filter-select" aria-label="Filter by policy"><option value="All">All policies</option></select>
+        </div>
+
+        <div class="table-responsive assets-table-wrap">
+          <table class="data-table assets-table">
+            <thead id="assetsTableHead"></thead>
+            <tbody id="assetsTableBody"></tbody>
+          </table>
+        </div>
+        <div class="assets-pagination">
+          <span id="assetsPageInfo" aria-live="polite"></span>
+          <div class="assets-pagination-actions">
+            <button type="button" class="btn btn-outline" id="assetsPrevPage">Previous</button>
+            <button type="button" class="btn btn-outline" id="assetsNextPage">Next</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================
+           SECTION D: HELPDESK
+           ================================================================= -->
+      <section class="view" id="view-helpdesk" hidden>
+        <div class="page-head">
+          <div>
+            <h1>Helpdesk Requests</h1>
+            <p>Raise a maintenance, IT, stores or safety hazard request and track it in real time.</p>
+          </div>
+        </div>
+
+        <div class="split-layout">
+          <!-- Raise Request Form Panel -->
+          <div class="panel">
+            <div class="panel-header">
+              <h2>Raise a New Request</h2>
+            </div>
+            <form id="ticketForm" class="form">
+              <div class="form-grid-2">
+                <div class="form-field">
+                  <label for="tkKind">Request Type</label>
+                  <select id="tkKind" required>
+                    <option value="Maintenance">Maintenance</option>
+                    <option value="IT">IT Support</option>
+                    <option value="Stores">Stores & Tool Crib</option>
+                    <option value="Safety hazard">Safety Hazard Report</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+                <div class="form-field">
+                  <label for="tkPrio">Priority Level</label>
+                  <select id="tkPrio" required>
+                    <option value="Normal">Normal</option>
+                    <option value="Urgent">Urgent</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-field">
+                <label for="tkTitle">Summary / Issue Title</label>
+                <input type="text" id="tkTitle" class="form-control" placeholder="e.g. Coolant leak on VMC-05" maxlength="140" required>
+              </div>
+
+              <div class="form-field">
+                <label for="tkWhere">Machine or Shop-Floor Location</label>
+                <input type="text" id="tkWhere" class="form-control" placeholder="e.g. Bay 2, VMC-05 spindle" maxlength="100">
+              </div>
+
+              <div class="form-field">
+                <label for="tkDetail">Detailed Description</label>
+                <textarea id="tkDetail" class="form-control" placeholder="Provide full details, error codes, or specific hazard observations..." maxlength="1000"></textarea>
+              </div>
+
+              <button type="submit" class="btn btn-primary" id="tkSubmitBtn">Submit Request</button>
+            </form>
+          </div>
+
+          <!-- Request Tracking Panel -->
+          <div class="panel">
+            <div class="panel-header">
+              <h2>Request Tracker</h2>
+            </div>
+
+            <!-- Status Filter Chips -->
+            <div class="chips-container" id="tkChips"></div>
+
+            <div style="margin-bottom:16px;">
+              <label class="form-checkbox">
+                <input type="checkbox" id="tkMine">
+                <span>Show only my requests</span>
+              </label>
+            </div>
+
+            <!-- Tickets List -->
+            <div id="ticketsList"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================
+           SECTION E: SUGGESTION BOX
+           ================================================================= -->
+      <section class="view" id="view-suggestions" hidden>
+        <div class="page-head">
+          <div>
+            <h1>Suggestion Box</h1>
+            <p>Ideas to improve plant safety, manufacturing efficiency, productivity or workplace wellbeing.</p>
+          </div>
+        </div>
+
+        <div class="split-layout">
+          <!-- Submit Suggestion Panel -->
+          <div class="panel">
+            <div class="panel-header">
+              <h2>Share an Improvement Idea</h2>
+            </div>
+            <p style="font-size:13px; color:var(--muted); margin-bottom:16px;">
+              Your name is securely attached to your suggestion. Plant management reviews every submission directly.
+            </p>
+
+            <form id="suggForm" class="form">
+              <div class="form-field">
+                <label for="sgCat">Improvement Category</label>
+                <select id="sgCat" required>
+                  <option value="Safety">Safety & Ergonomics</option>
+                  <option value="Process improvement">Process & Cycle Time Improvement</option>
+                  <option value="Workplace">Workplace Environment & 5S</option>
+                  <option value="Other">General Idea / Other</option>
+                </select>
+              </div>
+
+              <div class="form-field">
+                <label for="sgText">Your Suggestion</label>
+                <textarea id="sgText" class="form-control" style="min-height:120px;" placeholder="Describe your recommendation, current bottleneck, and expected benefit..." maxlength="1200" required></textarea>
+              </div>
+
+              <button type="submit" class="btn btn-primary" id="sgSubmitBtn">Submit Suggestion</button>
+            </form>
+          </div>
+
+          <!-- View Suggestions Panel -->
+          <div class="panel">
+            <div class="panel-header">
+              <h2 id="suggListHeading">Your Suggestions</h2>
+            </div>
+            <div id="suggestionsList"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================
+           SECTION F: HR AND HOLIDAYS
+           ================================================================= -->
+      <section class="view" id="view-hr" hidden>
+        <div class="page-head">
+          <div>
+            <h1>HR & Plant Holidays</h1>
+            <p>Annual plant calendar, human resources policies, leave rules, and key emergency contacts.</p>
+          </div>
+          <div class="page-actions" data-admin-only hidden>
+            <button type="button" class="btn btn-outline" id="openHolidayModalBtn">+ Add Holiday</button>
+          </div>
+        </div>
+
+        <div class="board-layout">
+          <div>
+            <!-- HR Controlled Documents -->
+            <div class="panel">
+              <div class="panel-header">
+                <h2>HR Documents & Forms</h2>
+              </div>
+              <div id="hrDocsList" style="display:grid; gap:10px;"></div>
+            </div>
+
+            <!-- HR and Safety Contacts -->
+            <div class="panel">
+              <div class="panel-header">
+                <h2>HR and Safety Officers</h2>
+              </div>
+              <div class="people-grid" id="hrContactsGrid" style="grid-template-columns:1fr 1fr;"></div>
+            </div>
+          </div>
+
+          <!-- Upcoming Holidays List -->
+          <div>
+            <div class="panel">
+              <div class="panel-header">
+                <h2>Upcoming Holidays</h2>
+              </div>
+              <p style="font-size:13px; color:var(--muted); margin-bottom:14px;">
+                Official plant schedule for Microtech CNC Pvt. Ltd. Confirm shift rosters with your supervisor.
+              </p>
+              <ul class="holiday-list" id="holidaysList"></ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================
+           SECTION G: QUICK LINKS
+           ================================================================= -->
+      <section class="view" id="view-links" hidden>
+        <div class="page-head">
+          <div>
+            <h1>Quick links</h1>
+            <p>Internal systems and tools used across the plant.</p>
+          </div>
+          <div class="page-actions" data-admin-only hidden>
+            <button type="button" class="btn btn-primary" id="openAddLinkModalBtn">+ Add Quick Link</button>
+          </div>
+        </div>
+
+        <div class="links-grid" id="quickLinksGrid"></div>
+
+        <section class="rdp-section" aria-labelledby="rdpHeading">
+          <div class="rdp-section-heading">
+            <h2 id="rdpHeading">RDP server connectivity</h2>
+            <p>Use any one of these pairs. Units U1 and U4 connect to the local address, units U2 and U3 to the remote address. Status as reported by IT on 10 Nov 2026.</p>
+          </div>
+          <div class="rdp-grid" id="rdpGrid"></div>
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <!-- =====================================================================
+       MODALS & DIALOGS
+       ===================================================================== -->
+
+  <!-- Modal: Update Board Figures (Admin) -->
+  <div class="modal-backdrop" id="boardModal" hidden>
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3>Update Shop Floor Board Figures</h3>
+        <button type="button" class="modal-close-btn" data-close-modal="boardModal">&times;</button>
+      </div>
+      <form id="boardFiguresForm">
+        <div class="modal-body">
+          <div class="form-grid-2">
+            <div class="form-field">
+              <label for="bdLast">Date of Last Lost-Time Incident</label>
+              <input type="date" id="bdLast" class="form-control" required>
+            </div>
+            <div class="form-field">
+              <label for="bdTarget">Incident-Free Target (Days)</label>
+              <input type="number" id="bdTarget" class="form-control" placeholder="365" required>
+            </div>
+          </div>
+
+          <div class="form-grid-2">
+            <div class="form-field">
+              <label for="bdDel">On-Time Delivery %</label>
+              <input type="text" id="bdDel" class="form-control" placeholder="96.4%" required>
+            </div>
+            <div class="form-field">
+              <label for="bdDelNote">Delivery Note</label>
+              <input type="text" id="bdDelNote" class="form-control" placeholder="October, target 95%">
+            </div>
+          </div>
+
+          <div class="form-grid-2">
+            <div class="form-field">
+              <label for="bdMac">Machines Down</label>
+              <input type="text" id="bdMac" class="form-control" placeholder="1 of 24" required>
+            </div>
+            <div class="form-field">
+              <label for="bdMacNote">Machines Note</label>
+              <input type="text" id="bdMacNote" class="form-control" placeholder="VMC-07, spindle service">
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" data-close-modal="boardModal">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="saveBoardBtn">Save Figures</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Post Announcement (Admin) -->
+  <div class="modal-backdrop" id="annModal" hidden>
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3>Post Announcement</h3>
+        <button type="button" class="modal-close-btn" data-close-modal="annModal">&times;</button>
+      </div>
+      <form id="postAnnForm">
+        <div class="modal-body">
+          <div class="form-grid-2">
+            <div class="form-field">
+              <label for="annCat">Category</label>
+              <select id="annCat">
+                <option value="Safety">Safety</option>
+                <option value="Production">Production</option>
+                <option value="Maintenance">Maintenance</option>
+                <option value="Quality">Quality</option>
+                <option value="HR">HR</option>
+                <option value="General">General</option>
+              </select>
+            </div>
+            <div class="form-field" style="display:flex; justify-content:center; align-items:flex-end;">
+              <label class="form-checkbox" style="margin-bottom:10px;">
+                <input type="checkbox" id="annPin">
+                <span>📌 Pin to top of board</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label for="annTitle">Headline</label>
+            <input type="text" id="annTitle" class="form-control" placeholder="Brief announcement headline..." maxlength="140" required>
+          </div>
+
+          <div class="form-field">
+            <label for="annBody">Details</label>
+            <textarea id="annBody" class="form-control" style="min-height:100px;" placeholder="Full announcement notice..." maxlength="1200"></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" data-close-modal="annModal">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="postAnnBtn">Publish Announcement</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Add Event (Admin) -->
+  <div class="modal-backdrop" id="eventModal" hidden>
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3>Add Upcoming Event</h3>
+        <button type="button" class="modal-close-btn" data-close-modal="eventModal">&times;</button>
+      </div>
+      <form id="addEventForm">
+        <div class="modal-body">
+          <div class="form-field">
+            <label for="evDate">Event Date</label>
+            <input type="date" id="evDate" class="form-control" required>
+          </div>
+          <div class="form-field">
+            <label for="evTitle">Event Title</label>
+            <input type="text" id="evTitle" class="form-control" placeholder="e.g. 5S Shop Floor Excellence Walk" maxlength="120" required>
+          </div>
+          <div class="form-field">
+            <label for="evPlace">Location and Time</label>
+            <input type="text" id="evPlace" class="form-control" placeholder="e.g. Shop Floor Bays 1-4, 02:30 PM" maxlength="120">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" data-close-modal="eventModal">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="saveEventBtn">Add Event</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Add / Edit Employee (Admin) -->
+  <div class="modal-backdrop" id="empModal" hidden>
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3 id="empModalTitle">Add New Employee</h3>
+        <button type="button" class="modal-close-btn" data-close-modal="empModal">&times;</button>
+      </div>
+      <form id="empForm">
+        <input type="hidden" id="empIdHidden">
+        <div class="modal-body">
+          <div class="form-grid-2">
+            <div class="form-field">
+              <label for="empCode">Employee ID</label>
+              <input type="text" id="empCode" class="form-control" placeholder="Enter employee ID" maxlength="120" required>
+            </div>
+            <div class="form-field">
+              <label for="empName">Full Name</label>
+              <input type="text" id="empName" class="form-control" placeholder="e.g. Rajesh Kumar" required>
+            </div>
+          </div>
+
+          <div class="form-grid-2">
+            <div class="form-field">
+              <label for="empDesig">Designation / Role</label>
+              <input type="text" id="empDesig" class="form-control" placeholder="e.g. CNC Programmer" required>
+            </div>
+            <div class="form-field">
+              <label for="empDept">Department</label>
+              <select id="empDept" required></select>
+            </div>
+          </div>
+
+          <div class="form-grid-2">
+            <div class="form-field">
+              <label for="empExt">Phone Extension</label>
+              <input type="text" id="empExt" class="form-control" placeholder="e.g. 134" required>
+            </div>
+            <div class="form-field">
+              <label for="empShiftSelect">Shift</label>
+              <select id="empShiftSelect" required>
+                <option value="General">General</option>
+                <option value="Shift A">Shift A</option>
+                <option value="Shift B">Shift B</option>
+                <option value="Shift C">Shift C</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label for="empEmail">Company Email</label>
+            <input type="email" id="empEmail" class="form-control" placeholder="name@mtcnc.com">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" data-close-modal="empModal">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="saveEmpBtn">Save Employee</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Add / Edit Document (Admin) -->
+  <div class="modal-backdrop" id="docModal" hidden>
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3 id="docModalTitle">Add Controlled Document</h3>
+        <button type="button" class="modal-close-btn" data-close-modal="docModal">&times;</button>
+      </div>
+      <form id="docForm">
+        <input type="hidden" id="docIdHidden">
+        <div class="modal-body">
+          <div class="form-grid-2">
+            <div class="form-field">
+              <label for="docNum">Document Number</label>
+              <input type="text" id="docNum" class="form-control" placeholder="e.g. SOP-PRD-015" required>
+            </div>
+            <div class="form-field">
+              <label for="docCategoryInput">Category</label>
+              <input type="text" id="docCategoryInput" class="form-control" placeholder="e.g. SOP, Quality, HR, Safety, Forms" required>
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label for="docTitleInput">Document Title</label>
+            <input type="text" id="docTitleInput" class="form-control" placeholder="e.g. First-off inspection protocol" required>
+          </div>
+
+          <div class="form-grid-2">
+            <div class="form-field">
+              <label for="docRevInput">Revision</label>
+              <input type="text" id="docRevInput" class="form-control" placeholder="A" maxlength="4" required>
+            </div>
+            <div class="form-field">
+              <label for="docDateInput">Revision Date</label>
+              <input type="date" id="docDateInput" class="form-control" required>
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label for="docLocationInput">Network Server File Location</label>
+            <input type="text" id="docLocationInput" class="form-control" placeholder="\\\\fileserver\\Production\\SOP\\SOP-PRD-015.pdf" required>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" data-close-modal="docModal">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="saveDocBtn">Save Document</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Add Holiday (Admin) -->
+  <div class="modal-backdrop" id="holidayModal" hidden>
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3>Add Plant Holiday</h3>
+        <button type="button" class="modal-close-btn" data-close-modal="holidayModal">&times;</button>
+      </div>
+      <form id="holidayForm">
+        <div class="modal-body">
+          <div class="form-field">
+            <label for="holDate">Holiday Date</label>
+            <input type="date" id="holDate" class="form-control" required>
+          </div>
+          <div class="form-field">
+            <label for="holName">Holiday Name</label>
+            <input type="text" id="holName" class="form-control" placeholder="e.g. Founder's Day" required>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" data-close-modal="holidayModal">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="saveHolidayBtn">Save Holiday</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Add / Edit Quick Link (Admin) -->
+  <div class="modal-backdrop" id="linkModal" hidden>
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3 id="linkModalTitle">Add Quick Link</h3>
+        <button type="button" class="modal-close-btn" data-close-modal="linkModal">&times;</button>
+      </div>
+      <form id="linkForm">
+        <input type="hidden" id="linkIdHidden">
+        <div class="modal-body">
+          <div class="form-field">
+            <label for="linkGroup">Category Group</label>
+            <select id="linkGroup" required>
+              <option value="Operations">Operations</option>
+              <option value="Quality and Maintenance">Quality and Maintenance</option>
+              <option value="People and Support">People and Support</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label for="linkTitleInput">Title</label>
+            <input type="text" id="linkTitleInput" class="form-control" placeholder="e.g. ERP System" required>
+          </div>
+          <div class="form-field">
+            <label for="linkSubtextInput">Description</label>
+            <input type="text" id="linkSubtextInput" class="form-control" placeholder="e.g. Orders, purchase and stock">
+          </div>
+          <div class="form-field">
+            <label for="linkUrlInput">URL</label>
+            <input type="text" id="linkUrlInput" class="form-control" placeholder="http://erp.plant.local" required>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" data-close-modal="linkModal">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="saveLinkBtn">Save Link</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Forgot Password & Recovery -->
+  <div class="modal-backdrop" id="forgotModal" hidden>
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3>Reset Your Password</h3>
+        <button type="button" class="modal-close-btn" data-close-modal="forgotModal">&times;</button>
+      </div>
+      <!-- Step 1: Request OTP -->
+      <div id="forgotStep1">
+        <form id="forgotRequestForm">
+          <div class="modal-body">
+            <p style="font-size:14px; color:var(--muted); margin-bottom:16px;">
+              Enter your User ID or registered email address. A one-time verification code (OTP) will be dispatched.
+            </p>
+            <div class="form-field">
+              <label for="forgotIdentifier">User ID or Email</label>
+              <input type="text" id="forgotIdentifier" class="form-control" placeholder="Employee ID or registered email" required>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline" data-close-modal="forgotModal">Cancel</button>
+            <button type="submit" class="btn btn-primary" id="sendOtpBtn">Send Verification OTP</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Step 2: Enter OTP & Set New Password -->
+      <div id="forgotStep2" hidden>
+        <form id="forgotResetForm">
+          <div class="modal-body">
+            <div id="otpNoticeBox" style="background:var(--accent-soft); border:1px solid rgba(2,132,199,0.2); padding:10px 14px; border-radius:6px; font-size:13px; margin-bottom:14px;">
+              Verification OTP has been generated.
+            </div>
+            <div class="form-field">
+              <label for="resetOtp">6-Digit Verification OTP</label>
+              <input type="text" id="resetOtp" class="form-control mono" placeholder="123456" maxlength="6" required>
+            </div>
+            <div class="form-field">
+              <label for="newPassword">New Password (minimum 8 characters)</label>
+              <input type="password" id="newPassword" class="form-control" placeholder="••••••••" minlength="8" maxlength="72" required>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline" id="backToStep1Btn">Back</button>
+            <button type="submit" class="btn btn-primary" id="confirmResetBtn">Set New Password</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Employee Profile -->
+  <div class="modal-backdrop" id="profileModal" hidden>
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3>Employee Profile</h3>
+        <button type="button" class="modal-close-btn" data-close-modal="profileModal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div style="display:flex; align-items:center; gap:16px; margin-bottom:20px; padding-bottom:16px; border-bottom:1px solid var(--line-subtle);">
+          <div class="person-av" id="profAvatar" style="width:60px; height:60px; font-size:20px;">AD</div>
+          <div>
+            <h2 id="profFullName" style="font-size:20px;">Administrator</h2>
+            <div id="profRoleBadge" style="margin-top:4px;"></div>
+          </div>
+        </div>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; font-size:14px;">
+          <div><b>Employee ID:</b> <span class="mono" id="profEmpId">-</span></div>
+          <div><b>Department:</b> <span id="profDept">-</span></div>
+          <div><b>Shift:</b> <span id="profShift">-</span></div>
+          <div><b>Extension:</b> <span class="mono" id="profExt">-</span></div>
+          <div style="grid-column: span 2;"><b>Email:</b> <span id="profEmail">-</span></div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-close-modal="profileModal">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" aria-live="polite"></div>
+
+  <!-- Main Application Logic -->
+  <script>
+/**
+ * MT CNC-Group - Employee Intranet Portal Client Application
+ * Microtech CNC Pvt. Ltd.
+ */
+
+// Application State
+const state = {
+  user: null,
+  board: null,
+  shifts: [],
+  emergency: [],
+  announcements: [],
+  events: [],
+  employees: [],
+  departments: [],
+  documents: [],
+  docCategories: [],
+  assets: [],
+  assetColumns: [],
+  assetSearch: '',
+  assetStatus: 'All',
+  assetOperatingSystem: 'All',
+  assetPolicy: 'All',
+  assetPage: 1,
+  assetPageSize: 25,
+  tickets: [],
+  suggestions: [],
+  holidays: [],
+  quickLinks: [],
+  currentView: 'home',
+  
+  // Filters
+  noticeFilter: 'All',
+  empSearch: '',
+  empDept: 'All',
+  empShift: 'All',
+  docSearch: '',
+  docCat: 'All',
+  tkStatus: 'All',
+  tkMine: false
+};
+
+// Keep directory management controls limited to administrator sessions.
+function isAdminUser() {
+  return Boolean(state.user && String(state.user.role || '').trim().toLowerCase() === 'admin');
+}
+
+let socket = null;
+// Clear tokens from the previous browser-storage implementation.
+localStorage.removeItem('mt_token');
+sessionStorage.removeItem('mt_token');
+
+// DOM Helper functions
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({
+  '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+}[c]));
+function safeExternalUrl(value) {
+  try {
+    const url = new URL(String(value), window.location.href);
+    if (!['http:', 'https:'].includes(url.protocol) || url.username || url.password) return '#';
+    return url.href;
+  } catch {
+    return '#';
+  }
+}
+
+function pad(n) { return (n < 10 ? '0' : '') + n; }
+function todayISO() {
+  const d = new Date();
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+}
+function fmtDate(iso) {
+  if (!iso) return '';
+  const d = new Date(String(iso).slice(0, 10) + 'T00:00:00');
+  return isNaN(d) ? '' : d.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
+}
+function fmtStamp(iso) {
+  if (!iso) return '';
+  const d = new Date(iso);
+  return isNaN(d) ? '' : d.toLocaleString('en-IN', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' });
+}
+
+// Toast Notifications
+function showToast(message, type = 'info') {
+  const container = $('toast-container');
+  if (!container) return;
+  const toast = document.createElement('div');
+  const safeType = ['success', 'error', 'warning', 'info'].includes(type) ? type : 'info';
+  toast.className = `toast toast-${safeType}`;
+  const text = document.createElement('span');
+  text.textContent = String(message == null ? '' : message);
+  toast.appendChild(text);
+  container.appendChild(toast);
+  setTimeout(() => {
+    toast.style.opacity = '0';
+    toast.style.transform = 'translateX(100%)';
+    toast.style.transition = 'all 0.3s ease';
+    setTimeout(() => toast.remove(), 300);
+  }, 4000);
+}
+
+// API Fetch Wrapper
+async function api(endpoint, method = 'GET', body = null) {
+  const headers = { 'Content-Type': 'application/json' };
+  const options = { method, headers, credentials: 'include' };
+  if (body && (method === 'POST' || method === 'PUT' || method === 'PATCH')) {
+    options.body = JSON.stringify(body);
+  }
+
+  try {
+    const res = await fetch(endpoint, options);
+    const data = await res.json();
+    
+    // Check 401 Unauthorized
+    if (res.status === 401) {
+      const isAuthEndpoint = endpoint.startsWith('/api/auth/login') ||
+                             endpoint.startsWith('/api/auth/forgot-password') ||
+                             endpoint.startsWith('/api/auth/reset-password') ||
+                             endpoint.startsWith('/api/auth/me');
+      if (!isAuthEndpoint) {
+        const hadActiveSession = !!state.user;
+        logout(false);
+        if (hadActiveSession && endpoint !== '/api/auth/me') {
+          showToast('Session expired. Please log in again.', 'error');
+        }
+      }
+      throw new Error(data.message || 'Unauthorized');
+    }
+
+    if (!res.ok) {
+      throw new Error(data.message || 'Request failed');
+    }
+    return data;
+  } catch (err) {
+    throw err;
+  }
+}
+
+// =========================================================================
+// THEME & ROUTING
+// =========================================================================
+
+function initTheme() {
+  const saved = localStorage.getItem('mt_theme') || 'light';
+  document.documentElement.setAttribute('data-theme', saved);
+  updateThemeIcon(saved);
+}
+
+function toggleTheme() {
+  const cur = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+  const next = cur === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  localStorage.setItem('mt_theme', next);
+  updateThemeIcon(next);
+}
+
+function updateThemeIcon(t) {
+  const icon = $('themeIcon');
+  if (icon) icon.textContent = t === 'dark' ? '☀️' : '🌙';
+}
+
+function route() {
+  const h = (location.hash || '#home').slice(1);
+  const views = ['home', 'directory', 'documents', 'assets', 'helpdesk', 'suggestions', 'hr', 'links'];
+  state.currentView = views.includes(h) ? h : 'home';
+
+  views.forEach((v) => {
+    const el = $(`view-${v}`);
+    if (el) el.hidden = v !== state.currentView;
+  });
+
+  document.querySelectorAll('[data-nav]').forEach((a) => {
+    if (a.dataset.nav === state.currentView) {
+      a.setAttribute('aria-current', 'page');
+    } else {
+      a.removeAttribute('aria-current');
+    }
+  });
+
+  // Load view-specific dynamic data if needed
+  if (state.currentView === 'directory') {
+    if (state.employees.length === 0) fetchEmployees();
+    else renderEmployees(); // Rebuild role-specific card actions after login/role changes.
+  }
+  if (state.currentView === 'documents' && state.documents.length === 0) fetchDocuments();
+  if (state.currentView === 'assets' && state.assets.length === 0) fetchAssets();
+  if (state.currentView === 'helpdesk') fetchTickets();
+  if (state.currentView === 'suggestions') fetchSuggestions();
+  if (state.currentView === 'hr') fetchHR();
+  if (state.currentView === 'links') fetchLinks();
+}
+
+window.addEventListener('hashchange', route);
+
+// =========================================================================
+// REAL-TIME SOCKET.IO
+// =========================================================================
+
+function initSocket() {
+  if (socket) return;
+  try {
+    socket = io();
+    socket.on('connect', () => {
+      console.log('⚡ Connected to MT CNC-Group live data stream');
+    });
+
+    // Board figure updates
+    socket.on('board:updated', (newBoard) => {
+      state.board = newBoard;
+      renderBoard();
+      showToast('Shop floor figures updated in real time.', 'info');
+    });
+
+    // Announcements
+    socket.on('announcement:created', (ann) => {
+      state.announcements.unshift(ann);
+      renderAnnouncements();
+      showToast(`📢 New Announcement: ${ann.headline}`, 'info');
+    });
+    socket.on('announcement:pinned', ({ id, is_pinned }) => {
+      const a = state.announcements.find((x) => String(x.id) === String(id));
+      if (a) a.is_pinned = is_pinned;
+      renderAnnouncements();
+    });
+    socket.on('announcement:deleted', ({ id }) => {
+      state.announcements = state.announcements.filter((x) => String(x.id) !== String(id));
+      renderAnnouncements();
+    });
+
+    // Events
+    socket.on('event:created', (ev) => {
+      state.events.push(ev);
+      renderEvents();
+      showToast(`📅 New Event added: ${ev.title}`, 'info');
+    });
+    socket.on('event:deleted', ({ id }) => {
+      state.events = state.events.filter((x) => String(x.id) !== String(id));
+      renderEvents();
+    });
+
+    // Employees
+    socket.on('employee:changed', ({ action, employee, id }) => {
+      if (action === 'created' && employee) {
+        state.employees.push(employee);
+        showToast(`👤 Colleague added: ${employee.name}`, 'info');
+      } else if (action === 'updated' && employee) {
+        const idx = state.employees.findIndex((e) => String(e.id) === String(employee.id));
+        if (idx >= 0) state.employees[idx] = employee;
+      } else if (action === 'deleted' && id) {
+        state.employees = state.employees.filter((e) => String(e.id) !== String(id));
+      }
+      renderEmployees();
+    });
+
+    // Documents
+    socket.on('document:changed', ({ action, document, id }) => {
+      if (action === 'created' && document) {
+        state.documents.push(document);
+        showToast(`📄 Document added: ${document.doc_number}`, 'info');
+      } else if (action === 'updated' && document) {
+        const idx = state.documents.findIndex((d) => String(d.id) === String(document.id));
+        if (idx >= 0) state.documents[idx] = document;
+      } else if (action === 'deleted' && id) {
+        state.documents = state.documents.filter((d) => String(d.id) !== String(id));
+      }
+      renderDocuments();
+    });
+
+    // Helpdesk Tickets
+    socket.on('ticket:created', (tk) => {
+      state.tickets.unshift(tk);
+      renderTickets();
+      showToast(`🎫 New Helpdesk Ticket: ${tk.ticket_ref}`, 'info');
+    });
+    socket.on('ticket:status_changed', ({ id, status }) => {
+      const t = state.tickets.find((x) => String(x.id) === String(id));
+      if (t) {
+        t.status = status;
+        renderTickets();
+        showToast(`Ticket status updated to "${status}"`, 'info');
+      }
+    });
+    socket.on('ticket:deleted', ({ id }) => {
+      state.tickets = state.tickets.filter((x) => String(x.id) !== String(id));
+      renderTickets();
+    });
+
+    // Suggestions
+    socket.on('suggestion:created', (sg) => {
+      if (state.user && (state.user.role === 'admin' || sg.submitted_by === state.user.id)) {
+        state.suggestions.unshift(sg);
+        renderSuggestions();
+      }
+    });
+    socket.on('suggestion:deleted', ({ id }) => {
+      state.suggestions = state.suggestions.filter((x) => String(x.id) !== String(id));
+      renderSuggestions();
+    });
+
+    // Holidays
+    socket.on('holiday:changed', () => {
+      fetchHR();
+    });
+
+    // Quick links
+    socket.on('link:changed', () => {
+      fetchLinks();
+    });
+  } catch (e) {
+    console.warn('Socket.IO not available:', e);
+  }
+}
+
+// =========================================================================
+// AUTHENTICATION LOGIC
+// =========================================================================
+
+async function checkAuth() {
+  try {
+    const res = await api('/api/auth/me');
+    if (res.success && res.user) {
+      state.user = res.user;
+      showAppView();
+      initSocket();
+      loadInitialData();
+    } else {
+      showLoginView();
+      fetchPublicPreview();
+    }
+  } catch (e) {
+    fetch('/api/auth/logout', { method: 'POST', credentials: 'same-origin' }).catch(() => {});
+    showLoginView();
+    fetchPublicPreview();
+  }
+}
+
+function showLoginView() {
+  $('login-container').hidden = false;
+  $('app-wrapper').hidden = true;
+}
+
+function showAppView() {
+  $('login-container').hidden = true;
+  $('app-wrapper').hidden = false;
+
+  // Set user header meta
+  if (state.user) {
+    const initials = state.user.full_name
+      .split(' ')
+      .map((w) => w[0])
+      .slice(0, 2)
+      .join('')
+      .toUpperCase();
+
+    $('headerUserAvatar').textContent = initials || 'MT';
+    $('headerUserName').textContent = state.user.full_name;
+    $('headerUserRole').textContent = state.user.role.toUpperCase();
+    const safeRole = ['admin', 'employee'].includes(state.user.role) ? state.user.role : 'employee';
+    $('headerUserRole').className = `role-pill ${safeRole}`;
+    $('headerUserEmpId').textContent = state.user.emp_id || '';
+
+    // Apply Admin Visibility
+    const isAdmin = isAdminUser();
+    document.querySelectorAll('[data-admin-only]').forEach((el) => {
+      el.hidden = !isAdmin;
+    });
+  }
+
+  route();
+}
+
+function logout(showNotification = false) {
+  state.user = null;
+  sessionStorage.removeItem('mt_token');
+  fetch('/api/auth/logout', { method: 'POST', credentials: 'same-origin' }).catch(() => {});
+  showLoginView();
+  fetchPublicPreview();
+  if (showNotification) {
+    showToast('Session terminated. Logged out successfully.', 'info');
+  }
+}
+
+// Public board preview for split screen login ticker
+async function fetchPublicPreview() {
+  try {
+    const res = await fetch('/api/board');
+    const data = await res.json();
+    if (data.success && data.data && data.data.board) {
+      const b = data.data.board;
+      if (b.last_incident_date) {
+        const days = Math.max(
+          0,
+          Math.floor((new Date(todayISO() + 'T00:00:00') - new Date(b.last_incident_date + 'T00:00:00')) / 86400000)
+        );
+        $('loginTickerLti').textContent = days;
+      }
+      $('loginTickerOtd').textContent = b.on_time_delivery || '96.4%';
+    }
+  } catch (e) {}
+}
+
+// =========================================================================
+// DATA FETCHERS & INITIALIZERS
+// =========================================================================
+
+async function loadInitialData() {
+  await Promise.all([
+    fetchBoard(),
+    fetchAnnouncements(),
+    fetchEvents()
+  ]);
+  renderShifts();
+}
+
+// SECTION A: BOARD & FIGURES
+async function fetchBoard() {
+  try {
+    const res = await api('/api/board');
+    if (res.success && res.data) {
+      state.board = res.data.board;
+      state.shifts = res.data.shifts || [];
+      state.emergency = res.data.emergency || [];
+      renderBoard();
+      renderShifts();
+      renderEmergency();
+    }
+  } catch (err) {
+    console.error('Error fetching board:', err);
+  }
+}
+
+function renderBoard() {
+  const b = state.board;
+  if (!b) return;
+
+  // Calculate incident-free days
+  if (b.last_incident_date) {
+    const days = Math.max(
+      0,
+      Math.floor((new Date(todayISO() + 'T00:00:00') - new Date(b.last_incident_date + 'T00:00:00')) / 86400000)
+    );
+    $('stDays').textContent = days;
+    $('stDaysNote').textContent = b.incident_free_target ? `Target: ${b.incident_free_target} days` : 'Incident-free';
+  } else {
+    $('stDays').textContent = 'Not set';
+    $('stDaysNote').textContent = 'Date not configured';
+  }
+
+  $('stDel').textContent = b.on_time_delivery || 'Not set';
+  $('stDelNote').textContent = b.delivery_note || '';
+
+  $('stMac').textContent = b.machines_down || '0 of 24';
+  $('stMacNote').textContent = b.machines_note || 'All systems operational';
+
+  // Fill board form for admin
+  $('bdLast').value = (b.last_incident_date || '').slice(0, 10);
+  $('bdTarget').value = b.incident_free_target || 365;
+  $('bdDel').value = b.on_time_delivery || '';
+  $('bdDelNote').value = b.delivery_note || '';
+  $('bdMac').value = b.machines_down || '';
+  $('bdMacNote').value = b.machines_note || '';
+}
+
+function renderShifts() {
+  const now = new Date();
+  const currentHour = now.getHours() + now.getMinutes() / 60;
+  let activeShift = null;
+
+  const defaultShifts = [
+    { name: 'Shift A', start_hour: 6, end_hour: 14, description: 'Morning Shift' },
+    { name: 'Shift B', start_hour: 14, end_hour: 22, description: 'Evening Shift' },
+    { name: 'Shift C', start_hour: 22, end_hour: 6, description: 'Night Shift' }
+  ];
+
+  const shiftList = state.shifts.length ? state.shifts : defaultShifts;
+
+  const html = shiftList
+    .map((s) => {
+      const isNow =
+        s.start_hour < s.end_hour
+          ? currentHour >= s.start_hour && currentHour < s.end_hour
+          : currentHour >= s.start_hour || currentHour < s.end_hour;
+
+      if (isNow) activeShift = s;
+
+      return `
+        <li class="shift-row ${isNow ? 'active-now' : ''}">
+          <span class="shift-name">
+            ${esc(s.name)}
+            ${isNow ? '<span class="badge-now">Active Now</span>' : ''}
+          </span>
+          <span class="shift-time">${pad(s.start_hour)}:00 to ${pad(s.end_hour)}:00</span>
+        </li>
+      `;
+    })
+    .join('');
+
+  $('shiftsList').innerHTML = html;
+  $('shiftNow').textContent = activeShift ? activeShift.name : 'Off-shift';
+  $('shiftTime').textContent = activeShift ? `${pad(activeShift.start_hour)}:00 to ${pad(activeShift.end_hour)}:00` : '';
+  $('todayDateStr').textContent = now.toLocaleDateString('en-IN', {
+    weekday: 'long',
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric'
+  });
+}
+
+function renderEmergency() {
+  const defaultSos = [
+    { title: 'Fire', contact_number: '101' },
+    { title: 'Ambulance', contact_number: '108' },
+    { title: 'Police', contact_number: '112' },
+    { title: 'Security Gate', contact_number: 'Ext 100' },
+    { title: 'First Aid Room', contact_number: 'Ext 105' }
+  ];
+
+  const list = state.emergency.length ? state.emergency : defaultSos;
+  $('sosList').innerHTML = list
+    .map(
+      (s) => `
+        <li class="sos-row">
+          <span class="sos-title">${esc(s.title)}</span>
+          <span class="sos-num">${esc(s.contact_number)}</span>
+        </li>
+      `
+    )
+    .join('');
+}
+
+// ANNOUNCEMENTS
+async function fetchAnnouncements() {
+  try {
+    const res = await api('/api/announcements');
+    if (res.success && res.data) {
+      state.announcements = res.data;
+      renderAnnouncements();
+    }
+  } catch (err) {
+    console.error('Error fetching announcements:', err);
+  }
+}
+
+function renderAnnouncements() {
+  const box = $('noticesList');
+  const chipsBox = $('noticeChips');
+  const isAdmin = state.user && state.user.role === 'admin';
+
+  let list = [...state.announcements];
+  list.sort((a, b) => (b.is_pinned ? 1 : 0) - (a.is_pinned ? 1 : 0) || String(b.posted_date).localeCompare(String(a.posted_date)));
+
+  // Build filter chips
+  const categories = ['All', 'Safety', 'Production', 'Maintenance', 'Quality', 'HR', 'General'];
+  chipsBox.innerHTML = categories
+    .map(
+      (c) => `
+      <button type="button" class="chip" data-ann-cat="${esc(c)}" aria-pressed="${c === state.noticeFilter}">
+        ${esc(c)}
+      </button>
+    `
+    )
+    .join('');
+
+  if (state.noticeFilter !== 'All') {
+    list = list.filter((a) => a.category === state.noticeFilter);
+  }
+
+  if (list.length === 0) {
+    box.innerHTML = '<div class="empty-state">No announcements posted in this category.</div>';
+    return;
+  }
+
+  box.innerHTML = list
+    .map((n) => {
+      const pinBtn = isAdmin
+        ? `<button type="button" class="btn btn-ghost" data-action="toggle-pin" data-id="${esc(n.id)}" data-pinned="${n.is_pinned}">
+            ${n.is_pinned ? 'Unpin' : 'Pin to top'}
+          </button>`
+        : '';
+      const delBtn = isAdmin
+        ? `<button type="button" class="btn btn-ghost btn-danger" data-action="delete-ann" data-id="${esc(n.id)}">Delete</button>`
+        : '';
+
+      return `
+        <article class="notice-item">
+          <time datetime="${esc(n.posted_date)}">${fmtDate(n.posted_date)}</time>
+          <div class="notice-content">
+            <h3>
+              ${n.is_pinned ? '<span class="tag pinned">📌 Pinned</span>' : ''}
+              <span class="tag ${esc(n.category)}">${esc(n.category)}</span>
+              ${esc(n.headline)}
+            </h3>
+            <p>${esc(n.body)}</p>
+            <div class="notice-actions">${pinBtn} ${delBtn}</div>
+          </div>
+        </article>
+      `;
+    })
+    .join('');
+}
+
+// EVENTS
+async function fetchEvents() {
+  try {
+    const res = await api('/api/events');
+    if (res.success && res.data) {
+      state.events = res.data;
+      renderEvents();
+    }
+  } catch (err) {
+    console.error('Error fetching events:', err);
+  }
+}
+
+function renderEvents() {
+  const box = $('eventsList');
+  const isAdmin = state.user && state.user.role === 'admin';
+  const list = state.events.slice().sort((a, b) => String(a.event_date).localeCompare(String(b.event_date)));
+
+  if (list.length === 0) {
+    box.innerHTML = '<li class="empty-state">No upcoming plant events listed.</li>';
+    return;
+  }
+
+  box.innerHTML = list
+    .map((e) => {
+      const d = new Date(e.event_date + 'T00:00:00');
+      const del = isAdmin
+        ? `<button type="button" class="btn btn-ghost btn-danger" data-action="delete-event" data-id="${esc(e.id)}">Delete</button>`
+        : '';
+
+      return `
+        <li class="event-row">
+          <div class="event-date-box">
+            <b>${d.getDate()}</b>
+            <span>${d.toLocaleDateString('en-IN', { month: 'short' })}</span>
+          </div>
+          <div class="event-details">
+            <div class="ev-title">${esc(e.title)}</div>
+            <div class="ev-place">${esc(e.place_and_time)}</div>
+          </div>
+          ${del}
+        </li>
+      `;
+    })
+    .join('');
+}
+
+// =========================================================================
+// SECTION B: EMPLOYEE DIRECTORY
+// =========================================================================
+
+async function fetchEmployees() {
+  try {
+    const res = await api('/api/employees');
+    if (res.success && res.data) {
+      state.employees = res.data;
+      state.departments = res.departments || [];
+      populateDepartmentSelects();
+      renderEmployees();
+    }
+  } catch (err) {
+    console.error('Error fetching employees:', err);
+  }
+}
+
+function populateDepartmentSelects() {
+  const depts = state.departments.length
+    ? state.departments
+    : Array.from(new Set(state.employees.map((e) => e.department).filter(Boolean)));
+
+  // Populate Filter Select
+  $('peopleDept').innerHTML =
+    '<option value="All">All Departments</option>' +
+    depts.map((d) => `<option value="${esc(d)}">${esc(d)}</option>`).join('');
+
+  // Populate Add/Edit Modal Select
+  $('empDept').innerHTML = depts.map((d) => `<option value="${esc(d)}">${esc(d)}</option>`).join('');
+}
+
+function renderEmployees() {
+  const box = $('peopleGrid');
+  const isAdmin = isAdminUser();
+
+  let list = state.employees.filter((p) => {
+    const matchesSearch =
+      !state.empSearch ||
+      (p.name + ' ' + p.designation + ' ' + p.department + ' ' + p.phone_ext + ' ' + p.emp_id + ' ' + p.email)
+        .toLowerCase()
+        .includes(state.empSearch.toLowerCase());
+
+    const matchesDept = state.empDept === 'All' || (p.department || '').trim().toLowerCase() === state.empDept.trim().toLowerCase();
+    const matchesShift = state.empShift === 'All' || p.shift === state.empShift;
+
+    return matchesSearch && matchesDept && matchesShift;
+  });
+
+  $('peopleCount').textContent = `Showing ${list.length} of ${state.employees.length} colleagues`;
+
+  if (list.length === 0) {
+    box.innerHTML = '<div class="empty-state" style="grid-column: 1/-1;">No colleagues match that search criteria.</div>';
+    return;
+  }
+
+  box.innerHTML = list
+    .map((p) => {
+      const initials = p.name
+        .split(' ')
+        .map((w) => w[0])
+        .slice(0, 2)
+        .join('')
+        .toUpperCase();
+
+      const adminActions = isAdmin
+        ? `
+        <div class="person-actions">
+          <button type="button" class="btn btn-ghost" data-action="edit-emp" data-id="${esc(p.id)}">Edit</button>
+          <button type="button" class="btn btn-ghost btn-danger" data-action="delete-emp" data-id="${esc(p.id)}">Delete</button>
+        </div>
+      `
+        : '';
+
+      return `
+        <div class="person-card">
+          <div class="person-av">${esc(initials)}</div>
+          <div class="person-info">
+            <h3>${esc(p.name)}</h3>
+            ${p.designation ? '<div class="person-role">' + esc(p.designation) + '</div>' : ''}
+            <div class="person-meta">
+                ${p.department ? `<span>🏢 ${esc(p.department)}</span>` : ''}
+                ${p.phone_ext ? `<span>📞 Ext ${esc(p.phone_ext)}</span>` : ''}
+                ${p.shift ? `<span>⏱️ ${esc(p.shift)}</span>` : ''}
+              ${p.emp_id ? `<span>🆔 ${esc(p.emp_id)}</span>` : ''}
+              ${p.email ? `<span>✉️ ${esc(p.email)}</span>` : ''}
+            </div>
+            ${adminActions}
+          </div>
+        </div>
+      `;
+    })
+    .join('');
+}
+
+// =========================================================================
+// SECTION C: DOCUMENTS AND POLICIES
+// =========================================================================
+
+async function fetchDocuments() {
+  try {
+    const res = await api('/api/documents');
+    if (res.success && res.data) {
+      state.documents = res.data;
+      state.docCategories = res.categories || [];
+
+      // Category filter dropdown
+      $('docCat').innerHTML =
+        '<option value="All">All Categories</option>' +
+        state.docCategories.map((c) => `<option value="${esc(c)}">${esc(c)}</option>`).join('');
+
+      renderDocuments();
+    }
+  } catch (err) {
+    console.error('Error fetching documents:', err);
+  }
+}
+
+function renderDocuments() {
+  const tbody = $('docsTableBody');
+  const isAdmin = state.user && state.user.role === 'admin';
+
+  let list = state.documents.filter((d) => {
+    const matchesSearch =
+      !state.docSearch ||
+      (d.doc_number + ' ' + d.title + ' ' + d.file_location)
+        .toLowerCase()
+        .includes(state.docSearch.toLowerCase());
+
+    const matchesCat = state.docCat === 'All' || d.category === state.docCat;
+    return matchesSearch && matchesCat;
+  });
+
+  $('docCount').textContent = `Showing ${list.length} of ${state.documents.length} controlled documents`;
+
+  if (list.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="7" class="empty-state">No documents found matching the search criteria.</td></tr>';
+    return;
+  }
+
+  tbody.innerHTML = list
+    .map((d) => {
+      const adminActions = isAdmin
+        ? `
+        <button type="button" class="btn btn-ghost" data-action="edit-doc" data-id="${esc(d.id)}">Edit</button>
+        <button type="button" class="btn btn-ghost btn-danger" data-action="delete-doc" data-id="${esc(d.id)}">Delete</button>
+      `
+        : '';
+
+      return `
+        <tr>
+          <td class="doc-no">${esc(d.doc_number)}</td>
+          <td><b>${esc(d.title)}</b></td>
+          <td><span class="tag">${esc(d.category)}</span></td>
+          <td class="mono">Rev ${esc(d.revision)}</td>
+          <td class="mono">${fmtDate(d.updated_date)}</td>
+          <td class="doc-path">
+            <div>${esc(d.file_location)}</div>
+            <button type="button" class="btn btn-ghost" data-action="copy-path" data-path="${esc(d.file_location)}" style="margin-top:4px;">
+              📋 Copy Path
+            </button>
+          </td>
+          <td style="text-align:right; white-space:nowrap;">
+            ${adminActions}
+          </td>
+        </tr>
+      `;
+    })
+    .join('');
+}
+
+// =========================================================================
+// SECTION C2: ASSETS (ADMIN READ-ONLY INVENTORY)
+// =========================================================================
+
+async function fetchAssets() {
+  try {
+    const res = await api('/api/assets');
+    if (!res.success || !Array.isArray(res.data) || !Array.isArray(res.columns)) {
+      throw new Error('Invalid assets response.');
+    }
+    state.assets = res.data;
+    state.assetColumns = res.columns;
+    for (const [id, label, values] of [
+      ['assetStatusFilter', 'All statuses', uniqueAssetValues('Endpoint Status')],
+      ['assetOsFilter', 'All operating systems', uniqueAssetValues('Operating System')],
+      ['assetPolicyFilter', 'All policies', uniqueAssetValues('Policy')]
+    ]) {
+      const select = $(id);
+      const current = select.value || 'All';
+      select.innerHTML = `<option value="All">${esc(label)}</option>` + values.map((value) => `<option value="${esc(value)}">${esc(value)}</option>`).join('');
+      if (values.includes(current)) select.value = current;
+    }
+    renderAssets();
+  } catch (err) {
+    console.error('Assets fetch failed.');
+    showToast(err.message || 'Unable to load asset inventory.', 'error');
+  }
+}
+
+function uniqueAssetValues(column) {
+  return Array.from(new Set(state.assets.map((asset) => asset[column]).filter((value) => value !== '')))
+    .sort((a, b) => a.localeCompare(b));
+}
+
+function renderAssets() {
+  const isAdmin = isAdminUser();
+  $('assetsTableHead').innerHTML = `<tr>${state.assetColumns.map((column) => `<th scope="col">${esc(column)}</th>`).join('')}${isAdmin ? '<th scope="col">Actions</th>' : ''}</tr>`;
+
+  const query = state.assetSearch.trim().toLowerCase();
+  const filtered = state.assets.map((asset, index) => ({ asset, index })).filter(({ asset }) => {
+    const matchesSearch = !query || state.assetColumns.some((column) => String(asset[column] ?? '').toLowerCase().includes(query));
+    const matchesStatus = state.assetStatus === 'All' || asset['Endpoint Status'] === state.assetStatus;
+    const matchesOs = state.assetOperatingSystem === 'All' || asset['Operating System'] === state.assetOperatingSystem;
+    const matchesPolicy = state.assetPolicy === 'All' || asset.Policy === state.assetPolicy;
+    return matchesSearch && matchesStatus && matchesOs && matchesPolicy;
+  });
+
+  const pageCount = Math.max(1, Math.ceil(filtered.length / state.assetPageSize));
+  state.assetPage = Math.min(Math.max(1, state.assetPage), pageCount);
+  const start = (state.assetPage - 1) * state.assetPageSize;
+  const pageRows = filtered.slice(start, start + state.assetPageSize);
+  $('assetsTableBody').innerHTML = pageRows.length
+    ? pageRows.map(({ asset, index }) => `<tr>${state.assetColumns.map((column) => {
+      if (isAdmin && (column === 'User Id' || column === 'Name')) {
+        const maxLength = column === 'User Id' ? 100 : 120;
+        return `<td><input class="form-control asset-edit-input" type="text" maxlength="${maxLength}" data-asset-index="${index}" data-asset-field="${esc(column)}" value="${esc(asset[column])}" aria-label="${esc(column)} for ${esc(asset['Endpoint Name'])}"></td>`;
+      }
+      return `<td>${esc(asset[column])}</td>`;
+    }).join('')}${isAdmin ? `<td><button type="button" class="btn btn-outline" data-action="save-asset-assignment" data-index="${index}">Save</button></td>` : ''}</tr>`).join('')
+    : `<tr><td colspan="${state.assetColumns.length + (isAdmin ? 1 : 0)}" class="empty-state">No assets match the selected search and filters.</td></tr>`;
+  $('assetsPageInfo').textContent = filtered.length
+    ? `Showing ${start + 1}–${Math.min(start + state.assetPageSize, filtered.length)} of ${filtered.length} matching assets`
+    : 'No matching assets';
+  $('assetsPrevPage').disabled = state.assetPage <= 1;
+  $('assetsNextPage').disabled = state.assetPage >= pageCount;
+}
+
+function resetAssetsPage() {
+  state.assetPage = 1;
+  renderAssets();
+}
+
+$('assetSearch').addEventListener('input', (event) => {
+  state.assetSearch = event.target.value;
+  resetAssetsPage();
+});
+$('assetStatusFilter').addEventListener('change', (event) => {
+  state.assetStatus = event.target.value;
+  resetAssetsPage();
+});
+$('assetOsFilter').addEventListener('change', (event) => {
+  state.assetOperatingSystem = event.target.value;
+  resetAssetsPage();
+});
+$('assetPolicyFilter').addEventListener('change', (event) => {
+  state.assetPolicy = event.target.value;
+  resetAssetsPage();
+});
+$('assetsPrevPage').addEventListener('click', () => {
+  state.assetPage -= 1;
+  renderAssets();
+});
+$('assetsNextPage').addEventListener('click', () => {
+  state.assetPage += 1;
+  renderAssets();
+});
+$('assetsTableBody').addEventListener('click', async (event) => {
+  const saveButton = event.target.closest('[data-action="save-asset-assignment"]');
+  if (!saveButton || !isAdminUser()) return;
+  const row = saveButton.closest('tr');
+  const index = saveButton.dataset.index;
+  const userId = row.querySelector('[data-asset-field="User Id"]').value;
+  const name = row.querySelector('[data-asset-field="Name"]').value;
+  saveButton.disabled = true;
+  try {
+    const result = await api(`/api/assets/${index}/assignment`, 'PATCH', { 'User Id': userId, Name: name });
+    state.assets[Number(index)] = result.data;
+    showToast(result.message, 'success');
+    renderAssets();
+  } catch (err) {
+    showToast(err.message || 'Unable to update asset assignment.', 'error');
+    saveButton.disabled = false;
+  }
+});
+
+// =========================================================================
+// SECTION D: HELPDESK
+// =========================================================================
+
+async function fetchTickets() {
+  try {
+    const res = await api(`/api/helpdesk?mine=${state.tkMine}`);
+    if (res.success && res.data) {
+      state.tickets = res.data;
+      renderTickets();
+    }
+  } catch (err) {
+    console.error('Error fetching tickets:', err);
+  }
+}
+
+function renderTickets() {
+  const box = $('ticketsList');
+  const chipsBox = $('tkChips');
+  const isAdmin = state.user && state.user.role === 'admin';
+
+  const statuses = ['All', 'Open', 'In progress', 'Done'];
+
+  // Status counts
+  const counts = { All: state.tickets.length };
+  ['Open', 'In progress', 'Done'].forEach((s) => {
+    counts[s] = state.tickets.filter((t) => t.status === s).length;
+  });
+
+  chipsBox.innerHTML = statuses
+    .map(
+      (s) => `
+      <button type="button" class="chip" data-tk-status="${esc(s)}" aria-pressed="${s === state.tkStatus}">
+        ${esc(s)} (${counts[s] || 0})
+      </button>
+    `
+    )
+    .join('');
+
+  let list = state.tickets;
+  if (state.tkStatus !== 'All') {
+    list = list.filter((t) => t.status === state.tkStatus);
+  }
+
+  if (list.length === 0) {
+    box.innerHTML = '<div class="empty-state">No helpdesk requests match this filter.</div>';
+    return;
+  }
+
+  box.innerHTML = list
+    .map((t) => {
+      const stClass = ['Open', 'In progress', 'Done'].includes(t.status) ? t.status.replace(/\s+/g, '') : 'Open';
+      const adminControls = isAdmin
+        ? `
+        <select class="form-control" data-action="change-tk-status" data-id="${esc(t.id)}" style="width:auto; padding:4px 8px; font-size:12px;">
+          <option value="Open" ${t.status === 'Open' ? 'selected' : ''}>Open</option>
+          <option value="In progress" ${t.status === 'In progress' ? 'selected' : ''}>In progress</option>
+          <option value="Done" ${t.status === 'Done' ? 'selected' : ''}>Done</option>
+        </select>
+        <button type="button" class="btn btn-ghost btn-danger" data-action="delete-tk" data-id="${esc(t.id)}">Delete</button>
+      `
+        : '';
+
+      return `
+        <article class="ticket-card">
+          <div class="ticket-head">
+            <div style="display:flex; align-items:center; gap:8px;">
+              <span class="mono" style="font-size:12px; font-weight:700; color:var(--accent);">${esc(t.ticket_ref)}</span>
+              <span class="tag ${esc(t.kind)}">${esc(t.kind)}</span>
+              ${t.priority === 'Urgent' ? '<span class="tag Safety">URGENT</span>' : ''}
+            </div>
+            <span class="status-pill ${stClass}">${esc(t.status)}</span>
+          </div>
+          <div class="ticket-title">${esc(t.title)}</div>
+          ${t.detail ? `<div class="ticket-detail">${esc(t.detail)}</div>` : ''}
+          <div class="ticket-foot">
+            ${t.machine_or_location ? `<span>📍 ${esc(t.machine_or_location)}</span>` : ''}
+            <span>👤 ${esc(t.submitter_name || 'Colleague')}</span>
+            <span>🕒 ${fmtStamp(t.created_at)}</span>
+            <div style="margin-left:auto; display:flex; align-items:center; gap:6px;">
+              ${adminControls}
+            </div>
+          </div>
+        </article>
+      `;
+    })
+    .join('');
+}
+
+// =========================================================================
+// SECTION E: SUGGESTION BOX
+// =========================================================================
+
+async function fetchSuggestions() {
+  try {
+    const res = await api('/api/suggestions');
+    if (res.success && res.data) {
+      state.suggestions = res.data;
+      renderSuggestions();
+    }
+  } catch (err) {
+    console.error('Error fetching suggestions:', err);
+  }
+}
+
+function renderSuggestions() {
+  const box = $('suggestionsList');
+  const isAdmin = state.user && state.user.role === 'admin';
+
+  $('suggListHeading').textContent = isAdmin ? 'All Plant Suggestions' : 'Your Suggestions';
+
+  if (state.suggestions.length === 0) {
+    box.innerHTML = `<div class="empty-state">${
+      isAdmin ? 'No suggestions have been submitted yet.' : 'You have not submitted any suggestions yet.'
+    }</div>`;
+    return;
+  }
+
+  box.innerHTML = state.suggestions
+    .map((s) => {
+      const del = isAdmin
+        ? `<button type="button" class="btn btn-ghost btn-danger" data-action="delete-sugg" data-id="${esc(s.id)}" style="margin-left:auto;">Delete</button>`
+        : '';
+
+      return `
+        <article class="ticket-card">
+          <div class="ticket-head">
+            <span class="tag Production">${esc(s.category)}</span>
+            <span class="mono" style="font-size:12px; color:var(--muted);">${fmtStamp(s.created_at)}</span>
+          </div>
+          <p style="font-size:14px; line-height:1.5; color:var(--fg); margin:8px 0;">${esc(s.suggestion_text)}</p>
+          <div class="ticket-foot">
+            <span>👤 By: <b>${esc(s.submitter_name || 'Colleague')}</b></span>
+            ${del}
+          </div>
+        </article>
+      `;
+    })
+    .join('');
+}
+
+// =========================================================================
+// SECTION F: HR AND HOLIDAYS
+// =========================================================================
+
+async function fetchHR() {
+  try {
+    const res = await api('/api/hr');
+    if (res.success && res.data) {
+      state.holidays = res.data.holidays || [];
+
+      // Render HR documents
+      $('hrDocsList').innerHTML = (res.data.documents || [])
+        .map(
+          (d) => `
+        <div style="padding:10px 14px; border:1px solid var(--line); border-radius:var(--radius-sm); background:var(--surface);">
+          <b>${esc(d.title)}</b>
+          <div style="font-size:12px; color:var(--muted); font-family:var(--font-mono); margin-top:2px;">
+            ${esc(d.doc_number)} (Rev ${esc(d.revision)}) • ${esc(d.file_location)}
+          </div>
+        </div>
+      `
+        )
+        .join('');
+
+      // Render HR & Safety Contacts
+      $('hrContactsGrid').innerHTML = (res.data.contacts || [])
+        .map((p) => {
+          const initials = p.name
+            .split(' ')
+            .map((w) => w[0])
+            .slice(0, 2)
+            .join('')
+            .toUpperCase();
+
+          return `
+          <div class="person-card">
+            <div class="person-av">${esc(initials)}</div>
+            <div class="person-info">
+              <h3>${esc(p.name)}</h3>
+              <div class="person-role">${esc(p.designation)}</div>
+              <div class="person-meta">
+                <span>Ext ${esc(p.phone_ext)}</span>
+                ${p.email ? `<span>✉️ ${esc(p.email)}</span>` : ''}
+              </div>
+            </div>
+          </div>
+        `;
+        })
+        .join('');
+
+      // Render Holidays
+      renderHolidays();
+    }
+  } catch (err) {
+    console.error('Error fetching HR data:', err);
+  }
+}
+
+function renderHolidays() {
+  const box = $('holidaysList');
+  const isAdmin = state.user && state.user.role === 'admin';
+
+  if (state.holidays.length === 0) {
+    box.innerHTML = '<li class="empty-state">No upcoming plant holidays listed.</li>';
+    return;
+  }
+
+  box.innerHTML = state.holidays
+    .map((h) => {
+      const del = isAdmin
+        ? `<button type="button" class="btn btn-ghost btn-danger" data-action="delete-holiday" data-id="${esc(h.id)}">Delete</button>`
+        : '';
+
+      return `
+        <li class="holiday-row">
+          <div>
+            <div class="h-name">${esc(h.name)}</div>
+            <div class="h-date">${fmtDate(h.holiday_date)} (${esc(h.day_name)})</div>
+          </div>
+          ${del}
+        </li>
+      `;
+    })
+    .join('');
+}
+
+// =========================================================================
+// SECTION G: QUICK LINKS
+// =========================================================================
+
+var LINKS = [
+  {
+    g: "Business systems",
+    items: [
+      ["Payroll software", "Payroll (EHR)", "https://ehr.microtechcnc.in:98/ehr/epfile.aspx"],
+      ["Payroll dashboard", "Sign in to MyBoard", "https://ehr.microtechcnc.in:98/dashboards/Login.htm?return=MyBoar"],
+      ["SAP", "mtgsapsrvr.microtechcnc.in", "https://mtgsapsrvr.microtechcnc.in/"],
+      ["SAP, alternate address", "sap.microtechcnc.in", "https://sap.microtechcnc.in"],
+      ["SAP dispatcher", "Internal server, port 8100", "https://mtgsapsrvr.mtg.sys:8100/dispatcher"]
+    ]
+  },
+  {
+    g: "Production and plant",
+    items: [
+      ["Manufacturing Execution System (MES)", "mes.microtechcnc.in, port 9006", "https://mes.microtechcnc.in:9006/"],
+      ["MicroTech Gate Management System (MGMS)", "mes.microtechcnc.in, port 9006", "https://mes.microtechcnc.in:9006/"],
+      ["EMA server", "Sign in", "https://ema.microtechcnc.in/"]
+    ]
+  },
+  {
+    g: "IT and collaboration",
+    items: [
+      ["IT-DES (Redmine)", "MTPL Group Digital Enablement Services", "https://des.microtechcnc.in/redmine/login"],
+      ["Microsoft 365", "Sign in, with Copilot", "https://m365.cloud.microsoft/"],
+      ["Server", "Link to the server", "https://10.24.1.102/eps/app/dashboard"]
+    ]
+  }
+];
+
+var RDP = [
+  {
+    local: "10.24.1.11:56565",
+    remote: "103.225.127.187:56565",
+    status: "Working",
+    note: "Under observation: SAP client server license error"
+  },
+  {
+    local: "172.32.2.14:56565",
+    remote: "103.225.127.188:56565",
+    status: "Working",
+    note: ""
+  },
+  {
+    local: "10.24.1.16:56565",
+    remote: "103.225.127.185:56565",
+    status: "Working",
+    note: ""
+  }
+];
+
+const LEGACY_SEED_LINK_URLS = new Set([
+  'http://erp.plant.local', 'http://prod.plant.local', 'http://tools.plant.local',
+  'http://qa.plant.local', 'http://maint.plant.local', 'http://calib.plant.local',
+  'http://hr.plant.local', 'http://helpdesk.plant.local', 'http://files.plant.local'
+]);
+
+async function fetchLinks() {
+  renderLinks();
+  try {
+    const res = await api('/api/links');
+    if (res.success && res.data) {
+      state.quickLinks = res.data;
+      renderLinks();
+    }
+  } catch (err) {
+    console.error('Error fetching quick links:', err);
+  }
+}
+
+function renderLinks() {
+  const grid = $('quickLinksGrid');
+  const isAdmin = state.user && state.user.role === 'admin';
+  const curatedUrls = new Set(LINKS.flatMap((group) => group.items.map((item) => item[2])));
+  const customGroups = (state.quickLinks || [])
+    .map((group) => ({
+      g: group.group,
+      items: (group.items || [])
+        .filter((item) => !curatedUrls.has(item.url) && !LEGACY_SEED_LINK_URLS.has(item.url))
+        .map((item) => [item.title, item.subtext, item.url, item.id])
+    }))
+    .filter((group) => group.items.length);
+  const groups = [
+    ...LINKS.map((group) => ({ ...group, items: group.items.map(([title, description, url]) => [title, description, url, null]) })),
+    ...customGroups
+  ];
+
+  grid.innerHTML = groups.map((group) => `
+    <section class="link-group-col">
+      <h2 class="link-group-title">${esc(group.g)}</h2>
+      <div class="link-items-col">
+        ${group.items.map(([title, description, url, id]) => `
+          <div class="quick-link-item">
+            <a href="${esc(safeExternalUrl(url))}" class="quick-link-card" target="_blank" rel="noopener noreferrer">
+              <b>${esc(title)}</b>
+              <span>${esc(description)}</span>
+            </a>
+            ${isAdmin && id ? `<button type="button" class="quick-link-delete btn btn-ghost btn-danger" data-action="delete-link" data-id="${esc(id)}" title="Delete link" aria-label="Delete ${esc(title)}">×</button>` : ''}
+          </div>
+        `).join('')}
+      </div>
+    </section>
+  `).join('');
+
+  $('rdpGrid').innerHTML = RDP.map((entry, index) => `
+    <article class="rdp-card">
+      <div class="rdp-card-head">
+        <h3>Option ${index + 1}</h3>
+        <span class="rdp-status"><span aria-hidden="true"></span>${esc(entry.status)}</span>
+      </div>
+      <div class="rdp-endpoint">
+        <span class="rdp-endpoint-label">Local (U1, U4)</span>
+        <code>${esc(entry.local)}</code>
+        <button type="button" class="rdp-copy-btn" data-copy-path="${esc(entry.local)}">Copy path</button>
+      </div>
+      <div class="rdp-endpoint">
+        <span class="rdp-endpoint-label">Remote (U2, U3)</span>
+        <code>${esc(entry.remote)}</code>
+        <button type="button" class="rdp-copy-btn" data-copy-path="${esc(entry.remote)}">Copy path</button>
+      </div>
+      ${entry.note ? `<p class="rdp-note">${esc(entry.note)}</p>` : ''}
+    </article>
+  `).join('');
+}
+
+$('rdpGrid').addEventListener('click', async (e) => {
+  const button = e.target.closest('[data-copy-path]');
+  if (!button) return;
+  const endpoint = button.dataset.copyPath;
+  try {
+    if (navigator.clipboard && window.isSecureContext) {
+      await navigator.clipboard.writeText(endpoint);
+    } else {
+      const field = document.createElement('textarea');
+      field.value = endpoint;
+      field.setAttribute('readonly', '');
+      field.style.position = 'fixed';
+      field.style.opacity = '0';
+      document.body.appendChild(field);
+      field.select();
+      const copied = document.execCommand('copy');
+      field.remove();
+      if (!copied) throw new Error('Clipboard copy was unavailable.');
+    }
+    showToast('Copied successfully', 'success');
+  } catch (err) {
+    showToast('Could not copy path. Please copy it manually.', 'error');
+  }
+});
+
+// =========================================================================
+// EVENT LISTENERS & FORM HANDLERS
+// =========================================================================
+
+// Theme toggle
+$('themeToggleBtn').addEventListener('click', toggleTheme);
+
+// Navigation routing
+document.querySelectorAll('[data-nav]').forEach((link) => {
+  link.addEventListener('click', (e) => {
+    e.preventDefault();
+    location.hash = `#${link.dataset.nav}`;
+  });
+});
+
+// Logout
+$('logoutBtn').addEventListener('click', () => logout(true));
+
+// Toggle password visibility
+$('togglePasswordBtn').addEventListener('click', () => {
+  const pwd = $('loginPassword');
+  const isPwd = pwd.type === 'password';
+  pwd.type = isPwd ? 'text' : 'password';
+  $('togglePasswordBtn').textContent = isPwd ? 'Hide' : 'Show';
+  $('togglePasswordBtn').setAttribute('aria-label', isPwd ? 'Hide password' : 'Show password');
+  $('togglePasswordBtn').setAttribute('title', isPwd ? 'Hide password' : 'Show password');
+  $('togglePasswordBtn').setAttribute('aria-pressed', String(isPwd));
+});
+
+// Login ID format is determined by the configured account, not a fixed character count.
+const empInput = $('loginEmpId');
+if (empInput) {
+  empInput.addEventListener('input', (e) => {
+    const msg = $('empIdValidationMsg');
+    if (!msg) return;
+    msg.textContent = e.target.value.trim() ? 'User ID entered. Enter your password to sign in.' : 'Enter the User ID assigned to your account.';
+    msg.style.color = e.target.value.trim() ? 'var(--ok)' : 'var(--muted)';
+  });
+}
+
+// Login Form Submit
+$('loginForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const btn = $('loginSubmitBtn');
+  const empId = $('loginEmpId').value.trim();
+  const password = $('loginPassword').value;
+
+  if (!empId) {
+    showToast('Enter your User ID.', 'error');
+    $('loginEmpId').focus();
+    return;
+  }
+
+  btn.disabled = true;
+  const btnLabel = btn.querySelector('span');
+  if (btnLabel) btnLabel.textContent = 'Signing in...';
+
+  try {
+    const res = await api('/api/auth/login', 'POST', {
+      employee_id: empId,
+      password: password,
+      remember_me: $('rememberMe').checked
+    });
+
+    if (res.success && res.user) {
+      state.user = res.user;
+      const session = await api('/api/auth/me');
+      if (session.user) state.user = session.user;
+      showToast(`Welcome to MT CNC-Group, ${res.user.full_name}!`, 'success');
+      showAppView();
+      initSocket();
+      loadInitialData();
+    }
+  } catch (err) {
+    showToast(err.message || 'Login failed. Please check credentials.', 'error');
+  } finally {
+    btn.disabled = false;
+    if (btnLabel) btnLabel.textContent = 'Sign in to Dashboard';
+  }
+});
+
+// Modal Open/Close handlers
+document.querySelectorAll('[data-close-modal]').forEach((btn) => {
+  btn.addEventListener('click', () => {
+    const modalId = btn.dataset.closeModal;
+    if ($(modalId)) $(modalId).hidden = true;
+  });
+});
+
+// Close modal on click outside
+document.querySelectorAll('.modal-backdrop').forEach((backdrop) => {
+  backdrop.addEventListener('click', (e) => {
+    if (e.target === backdrop) backdrop.hidden = true;
+  });
+});
+
+// Open Board figures modal
+$('openBoardModalBtn').addEventListener('click', () => {
+  renderBoard();
+  $('boardModal').hidden = false;
+});
+
+// Save Board figures
+$('boardFiguresForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const btn = $('saveBoardBtn');
+  btn.disabled = true;
+  try {
+    const res = await api('/api/board', 'PUT', {
+      last_incident_date: $('bdLast').value,
+      incident_free_target: parseInt($('bdTarget').value, 10),
+      on_time_delivery: $('bdDel').value,
+      delivery_note: $('bdDelNote').value,
+      machines_down: $('bdMac').value,
+      machines_note: $('bdMacNote').value
+    });
+    if (res.success) {
+      state.board = res.data;
+      renderBoard();
+      $('boardModal').hidden = true;
+      showToast('Shop floor figures updated successfully.', 'success');
+    }
+  } catch (err) {
+    showToast(err.message || 'Failed to update figures.', 'error');
+  } finally {
+    btn.disabled = false;
+  }
+});
+
+// Announcements Form Modal
+$('openAnnModalBtn').addEventListener('click', () => {
+  $('postAnnForm').reset();
+  $('annModal').hidden = false;
+});
+
+$('postAnnForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const btn = $('postAnnBtn');
+  btn.disabled = true;
+  try {
+    const res = await api('/api/announcements', 'POST', {
+      category: $('annCat').value,
+      headline: $('annTitle').value,
+      body: $('annBody').value,
+      is_pinned: $('annPin').checked
+    });
+    if (res.success) {
+      $('annModal').hidden = true;
+      showToast('Announcement posted!', 'success');
+    }
+  } catch (err) {
+    showToast(err.message || 'Failed to post.', 'error');
+  } finally {
+    btn.disabled = false;
+  }
+});
+
+// Filter announcements by chips
+$('noticeChips').addEventListener('click', (e) => {
+  const btn = e.target.closest('[data-ann-cat]');
+  if (!btn) return;
+  state.noticeFilter = btn.dataset.annCat;
+  renderAnnouncements();
+});
+
+// Announcement card actions (Pin, Delete)
+$('noticesList').addEventListener('click', async (e) => {
+  const pinBtn = e.target.closest('[data-action="toggle-pin"]');
+  if (pinBtn) {
+    const id = pinBtn.dataset.id;
+    const isPinned = pinBtn.dataset.pinned === '1' || pinBtn.dataset.pinned === 'true';
+    try {
+      await api(`/api/announcements/${id}/pin`, 'PATCH', { is_pinned: !isPinned });
+      showToast('Pin status updated.', 'info');
+    } catch (err) {
+      showToast('Failed to update pin.', 'error');
+    }
+    return;
+  }
+
+  const delBtn = e.target.closest('[data-action="delete-ann"]');
+  if (delBtn) {
+    if (!confirm('Are you sure you want to delete this announcement?')) return;
+    try {
+      await api(`/api/announcements/${delBtn.dataset.id}`, 'DELETE');
+      showToast('Announcement removed.', 'info');
+    } catch (err) {
+      showToast('Failed to delete.', 'error');
+    }
+  }
+});
+
+// Add Event Modal
+$('openEventModalBtn').addEventListener('click', () => {
+  $('addEventForm').reset();
+  $('evDate').value = todayISO();
+  $('eventModal').hidden = false;
+});
+
+$('addEventForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const btn = $('saveEventBtn');
+  btn.disabled = true;
+  try {
+    const res = await api('/api/events', 'POST', {
+      event_date: $('evDate').value,
+      title: $('evTitle').value,
+      place_and_time: $('evPlace').value
+    });
+    if (res.success) {
+      $('eventModal').hidden = true;
+      showToast('Event added!', 'success');
+    }
+  } catch (err) {
+    showToast(err.message || 'Failed to add event.', 'error');
+  } finally {
+    btn.disabled = false;
+  }
+});
+
+// Delete Event
+$('eventsList').addEventListener('click', async (e) => {
+  const delBtn = e.target.closest('[data-action="delete-event"]');
+  if (delBtn) {
+    if (!confirm('Delete this event from the plant schedule?')) return;
+    try {
+      await api(`/api/events/${delBtn.dataset.id}`, 'DELETE');
+      showToast('Event deleted.', 'info');
+    } catch (err) {
+      showToast('Failed to delete event.', 'error');
+    }
+  }
+});
+
+// Employee Search & Filters
+$('peopleSearch').addEventListener('input', (e) => {
+  state.empSearch = e.target.value.trim();
+  renderEmployees();
+});
+$('peopleDept').addEventListener('change', (e) => {
+  state.empDept = e.target.value;
+  renderEmployees();
+});
+$('peopleShift').addEventListener('change', (e) => {
+  state.empShift = e.target.value;
+  renderEmployees();
+});
+
+// Add Employee Modal
+$('openAddEmpModalBtn').addEventListener('click', () => {
+  if (!isAdminUser()) return;
+  $('empForm').reset();
+  $('empIdHidden').value = '';
+  $('empCode').disabled = false;
+  $('empModalTitle').textContent = 'Add New Employee';
+  populateDepartmentSelects();
+  $('empModal').hidden = false;
+});
+
+// Save Employee (Add or Edit)
+$('empForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  if (!isAdminUser()) {
+    showToast('Administrator privileges are required to manage directory entries.', 'error');
+    return;
+  }
+  const btn = $('saveEmpBtn');
+  btn.disabled = true;
+  const id = $('empIdHidden').value;
+  const payload = {
+    emp_id: $('empCode').value,
+    name: $('empName').value,
+    designation: $('empDesig').value,
+    department: $('empDept').value,
+    phone_ext: $('empExt').value,
+    shift: $('empShiftSelect').value,
+    email: $('empEmail').value
+  };
+
+  try {
+    if (id) {
+      const result = await api(`/api/employees/${id}`, 'PUT', payload);
+      showToast(result.message, 'info');
+    } else {
+      const result = await api('/api/employees', 'POST', payload);
+      showToast(result.message, 'info');
+    }
+    $('empModal').hidden = true;
+  } catch (err) {
+    showToast(err.message || 'Failed to save employee.', 'error');
+  } finally {
+    btn.disabled = false;
+  }
+});
+
+// Employee Card Actions (Edit, Delete)
+$('peopleGrid').addEventListener('click', async (e) => {
+  if (!isAdminUser()) return;
+  const editBtn = e.target.closest('[data-action="edit-emp"]');
+  if (editBtn) {
+    const emp = state.employees.find((x) => String(x.id) === String(editBtn.dataset.id));
+    if (!emp) return;
+    $('empIdHidden').value = emp.id;
+    $('empCode').value = emp.emp_id;
+    $('empCode').disabled = true;
+    $('empName').value = emp.name;
+    $('empDesig').value = emp.designation;
+    $('empDept').value = emp.department;
+    $('empExt').value = emp.phone_ext;
+    $('empShiftSelect').value = emp.shift || 'General';
+    $('empEmail').value = emp.email || '';
+    $('empModalTitle').textContent = 'Edit Employee Profile';
+    $('empModal').hidden = false;
+    return;
+  }
+
+  const delBtn = e.target.closest('[data-action="delete-emp"]');
+  if (delBtn) {
+    if (!confirm('Are you sure you want to remove this employee from directory?')) return;
+    try {
+      const result = await api(`/api/employees/${delBtn.dataset.id}`, 'DELETE');
+      showToast(result.message, 'info');
+    } catch (err) {
+      showToast('Failed to delete employee.', 'error');
+    }
+  }
+});
+
+// Documents Search & Filters
+$('docSearch').addEventListener('input', (e) => {
+  state.docSearch = e.target.value.trim();
+  renderDocuments();
+});
+$('docCat').addEventListener('change', (e) => {
+  state.docCat = e.target.value;
+  renderDocuments();
+});
+
+// Add Document Modal
+$('openAddDocModalBtn').addEventListener('click', () => {
+  $('docForm').reset();
+  $('docIdHidden').value = '';
+  $('docNum').disabled = false;
+  $('docDateInput').value = todayISO();
+  $('docModalTitle').textContent = 'Add Controlled Document';
+  $('docModal').hidden = false;
+});
+
+// Save Document (Add / Edit)
+$('docForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const btn = $('saveDocBtn');
+  btn.disabled = true;
+  const id = $('docIdHidden').value;
+
+  const payload = {
+    doc_number: $('docNum').value,
+    title: $('docTitleInput').value,
+    category: $('docCategoryInput').value,
+    revision: $('docRevInput').value,
+    updated_date: $('docDateInput').value,
+    file_location: $('docLocationInput').value
+  };
+
+  try {
+    if (id) {
+      const result = await api(`/api/documents/${id}`, 'PUT', payload);
+      showToast(result.message, 'info');
+    } else {
+      const result = await api('/api/documents', 'POST', payload);
+      showToast(result.message, 'info');
+    }
+    $('docModal').hidden = true;
+  } catch (err) {
+    showToast(err.message || 'Failed to save document.', 'error');
+  } finally {
+    btn.disabled = false;
+  }
+});
+
+// Documents Table Actions (Copy Path, Edit, Delete)
+$('docsTableBody').addEventListener('click', async (e) => {
+  const copyBtn = e.target.closest('[data-action="copy-path"]');
+  if (copyBtn) {
+    const path = copyBtn.dataset.path;
+    try {
+      await navigator.clipboard.writeText(path);
+      copyBtn.textContent = '✓ Copied';
+      setTimeout(() => (copyBtn.textContent = '📋 Copy Path'), 1500);
+    } catch (err) {
+      showToast(`Location: ${path}`, 'info');
+    }
+    return;
+  }
+
+  const editBtn = e.target.closest('[data-action="edit-doc"]');
+  if (editBtn) {
+    const doc = state.documents.find((x) => String(x.id) === String(editBtn.dataset.id));
+    if (!doc) return;
+    $('docIdHidden').value = doc.id;
+    $('docNum').value = doc.doc_number;
+    $('docNum').disabled = true;
+    $('docTitleInput').value = doc.title;
+    $('docCategoryInput').value = doc.category;
+    $('docRevInput').value = doc.revision;
+    $('docDateInput').value = (doc.updated_date || '').slice(0, 10);
+    $('docLocationInput').value = doc.file_location;
+    $('docModalTitle').textContent = 'Edit Document Information';
+    $('docModal').hidden = false;
+    return;
+  }
+
+  const delBtn = e.target.closest('[data-action="delete-doc"]');
+  if (delBtn) {
+    if (!confirm('Are you sure you want to delete this controlled document?')) return;
+    try {
+      const result = await api(`/api/documents/${delBtn.dataset.id}`, 'DELETE');
+      showToast(result.message, 'info');
+    } catch (err) {
+      showToast('Failed to delete document.', 'error');
+    }
+  }
+});
+
+// Helpdesk Submit Form
+$('ticketForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const btn = $('tkSubmitBtn');
+  btn.disabled = true;
+  try {
+    const res = await api('/api/helpdesk', 'POST', {
+      kind: $('tkKind').value,
+      priority: $('tkPrio').value,
+      title: $('tkTitle').value,
+      machine_or_location: $('tkWhere').value,
+      detail: $('tkDetail').value
+    });
+    if (res.success) {
+      $('ticketForm').reset();
+      showToast('Request submitted to helpdesk!', 'success');
+    }
+  } catch (err) {
+    showToast(err.message || 'Failed to submit request.', 'error');
+  } finally {
+    btn.disabled = false;
+  }
+});
+
+// Helpdesk Filters (Chips, Show Mine)
+$('tkChips').addEventListener('click', (e) => {
+  const btn = e.target.closest('[data-tk-status]');
+  if (!btn) return;
+  state.tkStatus = btn.dataset.tkStatus;
+  renderTickets();
+});
+$('tkMine').addEventListener('change', (e) => {
+  state.tkMine = e.target.checked;
+  fetchTickets();
+});
+
+// Helpdesk Actions (Status Dropdown, Delete)
+$('ticketsList').addEventListener('change', async (e) => {
+  const sel = e.target.closest('[data-action="change-tk-status"]');
+  if (sel) {
+    try {
+      await api(`/api/helpdesk/${sel.dataset.id}/status`, 'PATCH', { status: sel.value });
+    } catch (err) {
+      showToast('Failed to update status.', 'error');
+    }
+  }
+});
+$('ticketsList').addEventListener('click', async (e) => {
+  const delBtn = e.target.closest('[data-action="delete-tk"]');
+  if (delBtn) {
+    if (!confirm('Delete this helpdesk ticket?')) return;
+    try {
+      await api(`/api/helpdesk/${delBtn.dataset.id}`, 'DELETE');
+      showToast('Ticket deleted.', 'info');
+    } catch (err) {
+      showToast('Failed to delete ticket.', 'error');
+    }
+  }
+});
+
+// Suggestions Form Submit
+$('suggForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const btn = $('sgSubmitBtn');
+  btn.disabled = true;
+  try {
+    const res = await api('/api/suggestions', 'POST', {
+      category: $('sgCat').value,
+      suggestion_text: $('sgText').value
+    });
+    if (res.success) {
+      $('suggForm').reset();
+      showToast('Thank you! Your idea has been sent to plant management.', 'success');
+    }
+  } catch (err) {
+    showToast(err.message || 'Failed to submit suggestion.', 'error');
+  } finally {
+    btn.disabled = false;
+  }
+});
+
+// Delete Suggestion
+$('suggestionsList').addEventListener('click', async (e) => {
+  const delBtn = e.target.closest('[data-action="delete-sugg"]');
+  if (delBtn) {
+    if (!confirm('Delete this suggestion?')) return;
+    try {
+      await api(`/api/suggestions/${delBtn.dataset.id}`, 'DELETE');
+      showToast('Suggestion deleted.', 'info');
+    } catch (err) {
+      showToast('Failed to delete suggestion.', 'error');
+    }
+  }
+});
+
+// Add Holiday Modal
+$('openHolidayModalBtn').addEventListener('click', () => {
+  $('holidayForm').reset();
+  $('holDate').value = todayISO();
+  $('holidayModal').hidden = false;
+});
+
+$('holidayForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const btn = $('saveHolidayBtn');
+  btn.disabled = true;
+  try {
+    const res = await api('/api/hr/holidays', 'POST', {
+      holiday_date: $('holDate').value,
+      name: $('holName').value
+    });
+    if (res.success) {
+      $('holidayModal').hidden = true;
+      showToast('Holiday added to plant calendar.', 'success');
+    }
+  } catch (err) {
+    showToast(err.message || 'Failed to add holiday.', 'error');
+  } finally {
+    btn.disabled = false;
+  }
+});
+
+// Delete Holiday
+$('holidaysList').addEventListener('click', async (e) => {
+  const delBtn = e.target.closest('[data-action="delete-holiday"]');
+  if (delBtn) {
+    if (!confirm('Remove this holiday from the schedule?')) return;
+    try {
+      await api(`/api/hr/holidays/${delBtn.dataset.id}`, 'DELETE');
+      showToast('Holiday removed.', 'info');
+    } catch (err) {
+      showToast('Failed to delete holiday.', 'error');
+    }
+  }
+});
+
+// Quick Link Modal & Actions
+$('openAddLinkModalBtn').addEventListener('click', () => {
+  $('linkForm').reset();
+  $('linkIdHidden').value = '';
+  $('linkModalTitle').textContent = 'Add Quick Link';
+  $('linkModal').hidden = false;
+});
+
+$('linkForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const btn = $('saveLinkBtn');
+  btn.disabled = true;
+  const id = $('linkIdHidden').value;
+
+  const payload = {
+    group_name: $('linkGroup').value,
+    title: $('linkTitleInput').value,
+    subtext: $('linkSubtextInput').value,
+    url: $('linkUrlInput').value
+  };
+
+  try {
+    if (id) {
+      await api(`/api/links/${id}`, 'PUT', payload);
+      showToast('Quick link updated.', 'success');
+    } else {
+      await api('/api/links', 'POST', payload);
+      showToast('Quick link created.', 'success');
+    }
+    $('linkModal').hidden = true;
+  } catch (err) {
+    showToast(err.message || 'Failed to save quick link.', 'error');
+  } finally {
+    btn.disabled = false;
+  }
+});
+
+$('quickLinksGrid').addEventListener('click', async (e) => {
+  const delBtn = e.target.closest('[data-action="delete-link"]');
+  if (delBtn) {
+    e.preventDefault();
+    e.stopPropagation();
+    if (!confirm('Delete this quick link?')) return;
+    try {
+      await api(`/api/links/${delBtn.dataset.id}`, 'DELETE');
+      showToast('Quick link removed.', 'info');
+    } catch (err) {
+      showToast('Failed to delete quick link.', 'error');
+    }
+  }
+});
+
+// Forgot Password Flow
+$('forgotPwdBtn').addEventListener('click', () => {
+  $('forgotStep1').hidden = false;
+  $('forgotStep2').hidden = true;
+  $('forgotRequestForm').reset();
+  $('forgotResetForm').reset();
+  $('forgotModal').hidden = false;
+});
+
+let forgotIdentifierCurrent = '';
+
+$('forgotRequestForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const btn = $('sendOtpBtn');
+  btn.disabled = true;
+  forgotIdentifierCurrent = $('forgotIdentifier').value.trim();
+
+  try {
+    const res = await api('/api/auth/forgot-password', 'POST', { identifier: forgotIdentifierCurrent });
+    if (res.success) {
+      $('otpNoticeBox').textContent = 'If an active account matches that identifier, a verification code has been sent to its registered email.';
+      $('resetOtp').value = '';
+      $('forgotStep1').hidden = true;
+      $('forgotStep2').hidden = false;
+      showToast('Verification code dispatched!', 'success');
+    }
+  } catch (err) {
+    showToast(err.message || 'Failed to request OTP.', 'error');
+  } finally {
+    btn.disabled = false;
+  }
+});
+
+$('backToStep1Btn').addEventListener('click', () => {
+  $('forgotStep1').hidden = false;
+  $('forgotStep2').hidden = true;
+});
+
+$('forgotResetForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const btn = $('confirmResetBtn');
+  btn.disabled = true;
+
+  try {
+    const res = await api('/api/auth/reset-password', 'POST', {
+      identifier: forgotIdentifierCurrent,
+      otp: $('resetOtp').value,
+      newPassword: $('newPassword').value
+    });
+    if (res.success) {
+      $('forgotModal').hidden = true;
+      showToast('Password reset successfully! Please sign in with your new password.', 'success');
+      $('loginPassword').value = $('newPassword').value;
+    }
+  } catch (err) {
+    showToast(err.message || 'Failed to reset password.', 'error');
+  } finally {
+    btn.disabled = false;
+  }
+});
+
+// User Profile Modal
+$('userProfileBtn').addEventListener('click', () => {
+  if (!state.user) return;
+  const initials = state.user.full_name
+    .split(' ')
+    .map((w) => w[0])
+    .slice(0, 2)
+    .join('')
+    .toUpperCase();
+
+  $('profAvatar').textContent = initials;
+  $('profFullName').textContent = state.user.full_name;
+  const safeRole = ['admin', 'employee'].includes(state.user.role) ? state.user.role : 'employee';
+  const roleBadge = document.createElement('span');
+  roleBadge.className = `role-pill ${safeRole}`;
+  roleBadge.textContent = safeRole.toUpperCase();
+  $('profRoleBadge').replaceChildren(roleBadge);
+  $('profEmpId').textContent = state.user.emp_id || 'N/A';
+  $('profDept').textContent = state.user.department || 'General';
+  $('profShift').textContent = state.user.shift || 'General';
+  $('profExt').textContent = state.user.phone_ext || 'N/A';
+  $('profEmail').textContent = state.user.email || 'N/A';
+  $('profileModal').hidden = false;
+});
+
+// Periodic Shift timer to automatically update shift highlights every minute
+setInterval(renderShifts, 60000);
+
+// Initialize on page load
+initTheme();
+checkAuth();
+
+</script>
+</body>
+</html>

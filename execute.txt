@@ -1,0 +1,7 @@
+set "NODE_PATH=D:\Plant-intranet\node_modules"
+set "JWT_SECRET=25sZLNWO7hoBEKKbXNQG0AzAjTmfuOhrgpH7UeMEEjUjkfsrUjrYI3vrE0kkUhdWav5hzJXQ0kCYJp0o3mE7HY"
+set "PORT=3001"
+node backend.js
+
+Admin: Employee ID 00000001 · Password Admin@123
+Employee: Employee ID 00000101 · Password User@123
